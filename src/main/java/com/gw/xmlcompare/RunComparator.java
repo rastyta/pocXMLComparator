@@ -57,7 +57,7 @@ public class RunComparator {
                 case FORM_PATTERN:
                     return XMLFileType.Form_Patterns;
                 case FORM_INFERENCE:
-                        return XMLFileType.Form_Inference;
+                    return XMLFileType.Form_Inference;
             }
         }
         NodeList children = node.getChildNodes();
