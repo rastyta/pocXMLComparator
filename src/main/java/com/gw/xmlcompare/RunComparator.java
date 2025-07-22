@@ -1,0 +1,54 @@
+package com.gw.xmlcompare;
+
+import com.gw.xmlcompare.comparators.FormPatternComparator;
+import com.gw.xmlcompare.model.XMLFileType;
+import org.w3c.dom.*;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
+
+public class RunComparator {
+    public static void main(String[] args) throws Exception{
+        XMLFileType oldFileType = resolveXmlFileType("src/main/resources/demo1.xml");
+        XMLFileType newFileType = resolveXmlFileType("src/main/resources/demo2.xml");
+        if(oldFileType != newFileType){
+            throw new IllegalArgumentException("Different XML file types: " + oldFileType+"/"+newFileType);
+        }
+        if(oldFileType == XMLFileType.Form_Patterns){
+            FormPatternComparator.compare();
+        }
+    }
+
+    private static XMLFileType resolveXmlFileType(String resourcePath) throws Exception {
+        InputStream is = RunComparator.class.getClassLoader().getResourceAsStream(resourcePath);
+        if (is == null) {
+            throw new IllegalArgumentException("Not XML file found " + resourcePath);
+        }
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        Document doc = builder.parse(is);
+
+        Element root = doc.getDocumentElement();
+
+        return findTypeRecursive(root);
+    }
+    private static XMLFileType findTypeRecursive(Node node) {
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            String nodeName = node.getNodeName();
+            // Find XML type
+            switch (nodeName) {
+                case "FormPattern":
+                    return XMLFileType.Form_Patterns;
+            }
+        }
+        NodeList children = node.getChildNodes();
+        for (int i = 0; i < children.getLength(); i++) {
+            XMLFileType type = findTypeRecursive(children.item(i));
+            if (type != null) {
+                return type;
+            }
+        }
+        return null;
+    }
+}

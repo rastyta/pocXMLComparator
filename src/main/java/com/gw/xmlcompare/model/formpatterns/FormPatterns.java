@@ -1,7 +1,6 @@
 
 package com.gw.xmlcompare.model.formpatterns;
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
