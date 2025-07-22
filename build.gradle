@@ -1,0 +1,54 @@
+plugins {
+    id 'java'
+    id 'org.unbroken-dome.xjc' version '2.0.0'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.17.1'
+    implementation 'javax.xml.bind:jaxb-api:2.3.1'
+    implementation 'org.glassfish.jaxb:jaxb-runtime:2.3.1'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+def schemaDir = file('src/main/resources/schema')
+def schemaFile = file("$schemaDir/generated.xsd")
+def xmlFile = file('src/main/resources/input.xml')
+def trangJar = file('libs/trang.jar')
+
+task generateXsd(type: JavaExec) {
+    group = 'xml'
+    description = 'Genera un XSD a partir de un XML usando Trang.'
+    inputs.file(xmlFile)
+    outputs.file(schemaFile)
+    mainClass = '-jar'
+    args = [trangJar, xmlFile, schemaFile]
+    classpath = files(trangJar)
+}
+
+xjcGenerate {
+    dependsOn generateXsd
+
+    source = fileTree(schemaDir) {
+        include '**/*.xsd'
+    }
+    outputDirectory = file("$buildDir/generated-sources/xjc")
+}
+
+sourceSets.main.java.srcDir "$buildDir/generated-sources/xjc"
+
+tasks.register('generatePojos') {
+    group = 'xml'
+    description = 'Genera XSD y POJOs'
+    dependsOn xjcGenerate
+}
