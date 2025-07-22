@@ -34,10 +34,6 @@
                 <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG"/>
                 <JobType>Renewal</JobType>
             </FormPatternJob>
-            <FormPatternJob public-id="pc:SqQBSUdPohu8_vD8jGKeh">
-                <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG"/>
-                <JobType>Rewrite</JobType>
-            </FormPatternJob>
         </FormPatternJobs>
         <FormPatternProducts>
             <FormPatternProduct public-id="pc:SaS3EDk8sVwcZ2UaHk4BH">

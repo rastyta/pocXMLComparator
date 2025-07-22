@@ -3,7 +3,6 @@ package com.gw.xmlcompare.model.formpatterns;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -39,21 +38,6 @@ public class FormPatterns {
 
     @XmlElement(name = "FormPattern", required = true)
     protected List<FormPattern> formPattern;
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        FormPatterns that = (FormPatterns) o;
-        if (this.formPattern.size() == ((FormPatterns) o).formPattern.size()){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(formPattern);
-    }
 
     /**
      * Gets the value of the formPattern property.
