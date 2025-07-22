@@ -10,8 +10,8 @@ import java.io.InputStream;
 
 public class RunComparator {
     public static void main(String[] args) throws Exception{
-        XMLFileType oldFileType = resolveXmlFileType("src/main/resources/demo1.xml");
-        XMLFileType newFileType = resolveXmlFileType("src/main/resources/demo2.xml");
+        XMLFileType oldFileType = resolveXmlFileType("demo1.xml");
+        XMLFileType newFileType = resolveXmlFileType("demo2.xml");
         if(oldFileType != newFileType){
             throw new IllegalArgumentException("Different XML file types: " + oldFileType+"/"+newFileType);
         }
@@ -38,7 +38,7 @@ public class RunComparator {
             String nodeName = node.getNodeName();
             // Find XML type
             switch (nodeName) {
-                case "FormPattern":
+                case "FormPatterns":
                     return XMLFileType.Form_Patterns;
             }
         }
