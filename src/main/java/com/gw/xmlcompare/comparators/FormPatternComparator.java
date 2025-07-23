@@ -162,11 +162,16 @@ public class FormPatternComparator {
                     "New", "Object"));
             return diffs;
         }
+
+        //looping through every field using reflection
         for (Field field : oldObj.getClass().getDeclaredFields()) {
+            //to access private field
             field.setAccessible(true);
+            //extracting values
             Object oldVal = field.get(oldObj);
             Object newVal = field.get(newObj);
             String fullPath = path + "." + field.getName();
+            //checking if it is String, Boolean, Enum , Integer and if there is a change we add to diff
             if (isSimpleType(field.getType())) {
                 if (!Objects.equals(oldVal, newVal)) {
                     diffs.add(new XMLDiffResult("FormPattern XML", code, fullPath,
@@ -174,7 +179,7 @@ public class FormPatternComparator {
                             newVal != null ? newVal.toString() : "null",
                             "Changed", field.getName()));
                 }
-            } else if (List.class.isAssignableFrom(field.getType())) {
+            } else if (List.class.isAssignableFrom(field.getType())) { //if it is list like lookup
                 diffs.addAll(compareLists(code, (List<?>) oldVal, (List<?>) newVal, fullPath));
             } else {
                 diffs.addAll(compareObjectsRecursively(code, oldVal, newVal, fullPath));
