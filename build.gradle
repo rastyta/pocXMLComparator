@@ -1,3 +1,6 @@
+// Import the XjcGenerate task type from the plugin
+import org.unbrokendome.gradle.plugins.xjc.XjcGenerate
+
 plugins {
     id 'java'
     id 'org.unbroken-dome.xjc' version '2.0.0'
@@ -21,14 +24,16 @@ java {
     targetCompatibility = JavaVersion.VERSION_11
 }
 
+// Define file paths
 def schemaDir = file('src/main/resources/schema')
 def schemaFile = file("$schemaDir/generated.xsd")
 def xmlFile = file('src/main/resources/input.xml')
 def trangJar = file('libs/trang.jar')
 
+// Task to generate an XSD from an XML file using Trang
 task generateXsd(type: JavaExec) {
     group = 'xml'
-    description = 'Genera un XSD a partir de un XML usando Trang.'
+    description = 'Generate an XSD from an XML using Trang.'
     inputs.file(xmlFile)
     outputs.file(schemaFile)
     mainClass = '-jar'
@@ -36,6 +41,7 @@ task generateXsd(type: JavaExec) {
     classpath = files(trangJar)
 }
 
+// Default XJC generate task provided by the plugin
 xjcGenerate {
     dependsOn generateXsd
 
@@ -45,10 +51,26 @@ xjcGenerate {
     outputDirectory = file("$buildDir/generated-sources/xjc")
 }
 
+// Additional XJC generate task to generate POJOs directly from an existing XSD
+task xjcGenerateWithXSD(type: XjcGenerate) {
+    source = fileTree(schemaDir) {
+        include '**/*.xsd'
+    }
+    outputDirectory = file("$buildDir/generated-sources/xjc")
+}
+
+// Include generated sources in the main source set
 sourceSets.main.java.srcDir "$buildDir/generated-sources/xjc"
 
-tasks.register('generatePojos') {
+// Convenience tasks to run the generators
+tasks.register('generatePojosFromXML') {
     group = 'xml'
-    description = 'Genera XSD y POJOs'
+    description = 'Generate XSD and POJOs from XML'
     dependsOn xjcGenerate
+}
+
+tasks.register('generatePojosFromXSD') {
+    group = 'xml'
+    description = 'Generate POJOs directly from XSD'
+    dependsOn xjcGenerateWithXSD
 }
