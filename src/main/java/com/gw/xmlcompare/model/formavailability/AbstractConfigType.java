@@ -1,9 +1,6 @@
 
 package com.gw.xmlcompare.model.formavailability;
 
-import generated.AvailabilityConfigType;
-import generated.ContainerType;
-
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;

@@ -16,16 +16,22 @@ import static com.gw.xmlcompare.writer.CSVWriter.writeResultsToExcel;
 public class RunComparator {
     public static final String FORM_PATTERN = "FormPattern";
     public static final String FORM_INFERENCE = "FormInference";
+    public static final String FORM_PATH = "src/main/resources/";
+    public static final String FORM_1 = "FormsToCompare/Form1.xml";
+    public static final String FORM_2 = "FormsToCompare/Form2.xml";
+    public static final String FORM_1_COMPARE = FORM_PATH+FORM_1;
+    public static final String FORM_2_COMPARE = FORM_PATH+FORM_2;
+    public static final String RESULT_PATH = FORM_PATH+"CSVResult/results.csv";
 
     public static void main(String[] args) throws Exception{
         List<XMLDiffResult> results = initProcess();
-        writeResultsToExcel(results, "results.csv");
+        writeResultsToExcel(results, RESULT_PATH);
     }
 
     private static List<XMLDiffResult> initProcess() throws Exception {
         List<XMLDiffResult> results = null;
-        XMLFileType oldFileType = resolveXmlFileType("FormInferenceDemo1.xml");
-        XMLFileType newFileType = resolveXmlFileType("FormInferenceDemo2.xml"); //FormInferenceDemo2
+        XMLFileType oldFileType = resolveXmlFileType(FORM_1);
+        XMLFileType newFileType = resolveXmlFileType(FORM_2); //FormInferenceDemo2
         if(newFileType == null || oldFileType != newFileType){
             throw new IllegalArgumentException("Different XML file types: " + oldFileType+"/"+newFileType);
         }
@@ -34,7 +40,6 @@ public class RunComparator {
         }else if(oldFileType == XMLFileType.Form_Inference){
             results = FormInferenceComparator.compareFormInferencePatterns();
         }
-        //todo: Export result to a excel sheet
         return results;
     }
 

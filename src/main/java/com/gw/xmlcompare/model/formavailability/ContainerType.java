@@ -1,10 +1,6 @@
 
 package com.gw.xmlcompare.model.formavailability;
 
-import generated.ContainerTypeEnum;
-import generated.PropertyType;
-import generated.VersionType;
-
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;

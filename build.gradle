@@ -27,9 +27,9 @@ java {
 }
 
 // Define file paths
-def schemaDir = file('src/main/resources/schema')
+def schemaDir = file('src/main/resources/CodeGeneration/XSDFile')
 def schemaFile = file("$schemaDir/generated.xsd")
-def xmlFile = file('src/main/resources/input.xml')
+def xmlFile = file('src/main/resources/CodeGeneration/XMLFile/input.xml')
 def trangJar = file('libs/trang.jar')
 
 // Task to generate an XSD from an XML file using Trang

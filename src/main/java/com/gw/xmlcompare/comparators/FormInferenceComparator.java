@@ -11,13 +11,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.*;
+
+import static com.gw.xmlcompare.RunComparator.FORM_1_COMPARE;
+import static com.gw.xmlcompare.RunComparator.FORM_2_COMPARE;
 import static com.gw.xmlcompare.comparators.utils.ComparatorUtilities.replaceRoot;
 
 public class FormInferenceComparator {
 
     public static List<XMLDiffResult> results = new ArrayList<>();
-    public static final String OLD_XML = "src/main/resources/formInferenceDemo1.xml";
-    public static final String NEW_XML = "src/main/resources/formInferenceDemo2.xml";
     public static final String FORM_INFERENCE_ROOT = "FormInferenceConfig";
     public static FormInferenceConfig oldFormPatterns;
     public static FormInferenceConfig newFormPatterns;
@@ -66,8 +67,8 @@ public class FormInferenceComparator {
     private static void makeFileChangesAndLoad() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document oldDoc = builder.parse(new File(OLD_XML));
-        Document newDoc = builder.parse(new File(NEW_XML));
+        Document oldDoc = builder.parse(new File(FORM_1_COMPARE));
+        Document newDoc = builder.parse(new File(FORM_2_COMPARE));
 
         //just load no need to replace root
         Document oldDocReplaced = replaceRoot(oldDoc, FORM_INFERENCE_ROOT);

@@ -12,12 +12,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.*;
 
+import static com.gw.xmlcompare.RunComparator.FORM_1_COMPARE;
+import static com.gw.xmlcompare.RunComparator.FORM_2_COMPARE;
 import static com.gw.xmlcompare.comparators.utils.ComparatorUtilities.replaceRoot;
 
 public class FormPatternComparator {
 
-    public static final String OLD_XML = "src/main/resources/demo1.xml";
-    public static final String NEW_XML = "src/main/resources/demo2.xml";
     public static final String NEW_ROOT = "FormPatterns";
     public static FormPatterns oldFormPatterns;
     public static FormPatterns newFormPatterns;
@@ -72,8 +72,8 @@ public class FormPatternComparator {
     private static void makeFileChangesAndLoad() throws Exception {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
-        Document oldDoc = builder.parse(new File(OLD_XML));
-        Document newDoc = builder.parse(new File(NEW_XML));
+        Document oldDoc = builder.parse(new File(FORM_1_COMPARE));
+        Document newDoc = builder.parse(new File(FORM_2_COMPARE));
 
         Document oldDocReplaced = replaceRoot(oldDoc, NEW_ROOT);
         Document newDocReplaced = replaceRoot(newDoc, NEW_ROOT);

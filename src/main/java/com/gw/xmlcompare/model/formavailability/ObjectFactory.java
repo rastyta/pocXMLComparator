@@ -1,9 +1,6 @@
 
 package com.gw.xmlcompare.model.formavailability;
 
-import generated.AvailabilityConfigType;
-import generated.ContainerType;
-
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
@@ -37,18 +34,18 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link generated.AvailabilityConfigType }
+     * Create an instance of {@link AvailabilityConfigType }
      * 
      */
-    public generated.AvailabilityConfigType createAvailabilityConfigType() {
-        return new generated.AvailabilityConfigType();
+    public AvailabilityConfigType createAvailabilityConfigType() {
+        return new AvailabilityConfigType();
     }
 
     /**
-     * Create an instance of {@link generated.ContainerType }
+     * Create an instance of {@link ContainerType }
      * 
      */
-    public generated.ContainerType createContainerType() {
+    public ContainerType createContainerType() {
         return new ContainerType();
     }
 
@@ -85,16 +82,16 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link generated.AvailabilityConfigType }{@code >}
+     * Create an instance of {@link JAXBElement }{@code <}{@link AvailabilityConfigType }{@code >}
      * 
      * @param value
      *     Java instance representing xml element's value.
      * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link generated.AvailabilityConfigType }{@code >}
+     *     the new instance of {@link JAXBElement }{@code <}{@link AvailabilityConfigType }{@code >}
      */
     @XmlElementDecl(namespace = "", name = "AvailabilityConfig")
-    public JAXBElement<generated.AvailabilityConfigType> createAvailabilityConfig(generated.AvailabilityConfigType value) {
-        return new JAXBElement<generated.AvailabilityConfigType>(_AvailabilityConfig_QNAME, AvailabilityConfigType.class, null, value);
+    public JAXBElement<AvailabilityConfigType> createAvailabilityConfig(AvailabilityConfigType value) {
+        return new JAXBElement<AvailabilityConfigType>(_AvailabilityConfig_QNAME, AvailabilityConfigType.class, null, value);
     }
 
 }
