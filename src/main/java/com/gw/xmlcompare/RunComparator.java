@@ -11,26 +11,28 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.util.List;
 
+import static com.gw.xmlcompare.writer.CSVWriter.writeResultsToExcel;
+
 public class RunComparator {
     public static final String FORM_PATTERN = "FormPattern";
     public static final String FORM_INFERENCE = "FormInference";
 
     public static void main(String[] args) throws Exception{
-        initProcess();
+        List<XMLDiffResult> results = initProcess();
+        writeResultsToExcel(results, "results.csv");
     }
 
     private static List<XMLDiffResult> initProcess() throws Exception {
         List<XMLDiffResult> results = null;
-        XMLFileType oldFileType = resolveXmlFileType("demo1.xml");
-        XMLFileType newFileType = resolveXmlFileType("demo2.xml");
+        XMLFileType oldFileType = resolveXmlFileType("FormInferenceDemo1.xml");
+        XMLFileType newFileType = resolveXmlFileType("FormInferenceDemo2.xml"); //FormInferenceDemo2
         if(newFileType == null || oldFileType != newFileType){
             throw new IllegalArgumentException("Different XML file types: " + oldFileType+"/"+newFileType);
         }
         if(oldFileType == XMLFileType.Form_Patterns){
             results = FormPatternComparator.compareFormPatterns();
         }else if(oldFileType == XMLFileType.Form_Inference){
-            //TODO: Add logic
-            results = FormInferenceComparator.compare();
+            results = FormInferenceComparator.compareFormInferencePatterns();
         }
         //todo: Export result to a excel sheet
         return results;

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="AvailabilityConfig" type="AvailabilityConfigType"/>
+  <xs:complexType name="AvailabilityConfigType">
+    <xs:complexContent>
+      <xs:extension base="AbstractConfigType"/>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="AbstractConfigType" abstract="true">
+    <xs:sequence>
+      <xs:element name="Container" type="ContainerType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ContainerType">
+    <xs:sequence>
+      <xs:element name="Version" type="VersionType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Property" type="PropertyType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+    <xs:attribute name="type" type="ContainerTypeEnum" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="PropertyType">
+    <xs:sequence>
+      <xs:element name="Version" type="VersionType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="name" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="VersionType">
+    <xs:sequence>
+      <xs:element name="Jurisdiction" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="EffectiveDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
+      <xs:element name="ExpiryDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Depends" type="DependsType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Available" type="xs:boolean" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="DependsType">
+    <xs:sequence>
+      <xs:element name="On" type="OnType" minOccurs="1" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="OnType">
+    <xs:sequence>
+      <xs:element name="classVariable" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="function" type="xs:string" use="optional"/>
+    <xs:attribute name="path" type="xs:string"/>
+    <xs:attribute name="op" type="xs:string" use="optional"/>
+    <xs:attribute name="value" type="xs:string" use="optional"/>
+    <xs:attribute name="valuePath" type="xs:string" use="optional"/>
+    <xs:attribute name="classPath" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:simpleType name="ContainerTypeEnum">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Coverable"/>
+      <xs:enumeration value="Schedule"/>
+      <xs:enumeration value="Clause"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

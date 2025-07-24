@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <FormPatterns>
-    <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG">
+    <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG1234">
         <ClausePatternCode/>
         <Code>FormCPP01</Code>
         <CovSysTableValueExistsOnAll/>
@@ -67,7 +67,7 @@
         <RemovalEndorsementFormNumber/>
         <UseInsteadOfCode/>
     </FormPattern>
-    <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z">
+   <!-- <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z">
         <ClausePatternCode/>
         <Code>FormIL17</Code>
         <CovSysTableValueExistsOnAll/>
@@ -157,5 +157,5 @@
         <RefCode/>
         <RemovalEndorsementFormNumber/>
         <UseInsteadOfCode/>
-    </FormPattern>
+    </FormPattern>-->
 </FormPatterns>

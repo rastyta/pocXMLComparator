@@ -6,13 +6,13 @@ import com.gw.xmlcompare.model.XMLDiffResult;
 import com.gw.xmlcompare.model.formpatterns.FormPattern;
 import com.gw.xmlcompare.model.formpatterns.FormPatterns;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.*;
+
+import static com.gw.xmlcompare.comparators.utils.ComparatorUtilities.replaceRoot;
 
 public class FormPatternComparator {
 
@@ -58,7 +58,15 @@ public class FormPatternComparator {
     }
 
     public static List<XMLDiffResult> compare(String code, FormPattern oldFP, FormPattern newFP) throws IllegalAccessException {
-        return ComparatorUtilities.compareObjectsRecursively(code, oldFP, newFP, "FormPattern");
+        List<XMLDiffResult> diffs = ComparatorUtilities.compareObjectsRecursively(code, oldFP, newFP, "FormPattern");
+        if(diffs.isEmpty()){
+            diffs.add(new XMLDiffResult("FormPattern XML",code, null,
+                    "-",
+                    "-",
+                    "No Change", "FormPattern XML"));
+            return diffs;
+        }
+        return diffs;
     }
 
     private static void makeFileChangesAndLoad() throws Exception {
@@ -67,29 +75,12 @@ public class FormPatternComparator {
         Document oldDoc = builder.parse(new File(OLD_XML));
         Document newDoc = builder.parse(new File(NEW_XML));
 
-        Document oldDocReplaced = replaceRoot(oldDoc);
-        Document newDocReplaced = replaceRoot(newDoc);
+        Document oldDocReplaced = replaceRoot(oldDoc, NEW_ROOT);
+        Document newDocReplaced = replaceRoot(newDoc, NEW_ROOT);
         oldFormPatterns = XmlLoaderJaxb.loadXml(oldDocReplaced, FormPatterns.class);
         newFormPatterns = XmlLoaderJaxb.loadXml(newDocReplaced, FormPatterns.class);
     }
 
-    private static Document replaceRoot(Document doc) {
-        Element oldRoot = doc.getDocumentElement();
-        // new root
-        Element newRoot = doc.createElement(NEW_ROOT);
-
-        //Move all children to new root
-        while (oldRoot.hasChildNodes()) {
-            Node child = oldRoot.getFirstChild();
-            oldRoot.removeChild(child);
-            newRoot.appendChild(child);
-        }
-
-        // Replace the new root in the Document
-        doc.removeChild(oldRoot);
-        doc.appendChild(newRoot);
-        return doc;
-    }
 
     private static Map<String, FormPattern> toCodeMap(List<FormPattern> list) {
         Map<String, FormPattern> map = new HashMap<>();

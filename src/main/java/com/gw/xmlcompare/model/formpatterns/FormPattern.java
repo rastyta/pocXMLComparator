@@ -1022,25 +1022,4 @@ public class FormPattern {
         this.publicId = value;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        FormPattern that = (FormPattern) o;
-        return Objects.equals(formPatternProducts, that.formPatternProducts) &&
-                Objects.equals(clausePatternCode, that.clausePatternCode) &&
-                Objects.equals(code, that.code) &&
-                Objects.equals(covSysTableValueExistsOnAll, that.covSysTableValueExistsOnAll) &&
-                Objects.equals(coverableSysTable, that.coverableSysTable) &&
-                Objects.equals(coverableType, that.coverableType) &&
-                Objects.equals(coverableTypeKey, that.coverableTypeKey) &&
-                Objects.equals(coverableTypeKeyExistsOnAll, that.coverableTypeKeyExistsOnAll) &&
-                Objects.equals(coverableTypeKeys, that.coverableTypeKeys) &&
-                Objects.equals(coverableTypeList, that.coverableTypeList) &&
-                Objects.equals(description, that.description) && Objects.equals(descriptionL10NARRAY, that.descriptionL10NARRAY) && Objects.equals(edition, that.edition) && Objects.equals(endorsementNumbered, that.endorsementNumbered) && Objects.equals(formNumber, that.formNumber) && Objects.equals(formPatternAdditionalInsuredTypes, that.formPatternAdditionalInsuredTypes) && Objects.equals(formPatternAdditionalInterestTypes, that.formPatternAdditionalInterestTypes) && Objects.equals(formPatternClauseCodes, that.formPatternClauseCodes) && Objects.equals(formPatternCovTerms, that.formPatternCovTerms) && Objects.equals(formPatternCoverableProperties, that.formPatternCoverableProperties) && Objects.equals(formPatternCoveragePartTypes, that.formPatternCoveragePartTypes) && Objects.equals(formPatternJobs, that.formPatternJobs) && Objects.equals(patternExistsOnAll, that.patternExistsOnAll) && Objects.equals(policyLinePatternCode, that.policyLinePatternCode) && Objects.equals(priority, that.priority) && Objects.equals(refCode, that.refCode) && Objects.equals(removalEndorsementFormNumber, that.removalEndorsementFormNumber) && Objects.equals(useInsteadOfCode, that.useInsteadOfCode) && Objects.equals(genericInferenceClass, that.genericInferenceClass) && Objects.equals(inferenceTime, that.inferenceTime) && Objects.equals(internalGroupCode, that.internalGroupCode) && Objects.equals(internalReissueOnChange, that.internalReissueOnChange) && Objects.equals(internalRemovalEndorsement, that.internalRemovalEndorsement) && Objects.equals(lookups, that.lookups) && Objects.equals(publicId, that.publicId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(formPatternProducts, clausePatternCode, code, covSysTableValueExistsOnAll, coverableSysTable, coverableType, coverableTypeKey, coverableTypeKeyExistsOnAll, coverableTypeKeys, coverableTypeList, description, descriptionL10NARRAY, edition, endorsementNumbered, formNumber, formPatternAdditionalInsuredTypes, formPatternAdditionalInterestTypes, formPatternClauseCodes, formPatternCovTerms, formPatternCoverableProperties, formPatternCoveragePartTypes, formPatternJobs, patternExistsOnAll, policyLinePatternCode, priority, refCode, removalEndorsementFormNumber, useInsteadOfCode, genericInferenceClass, inferenceTime, internalGroupCode, internalReissueOnChange, internalRemovalEndorsement, lookups, publicId);
-    }
 }

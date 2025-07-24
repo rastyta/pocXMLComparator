@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FormInferenceConfig>
+    <FormInference formCode="11">
+        <Version>
+            <Jurisdiction>CD</Jurisdiction>
+        </Version>
+    </FormInference>
+    <FormInference formCode="09">
+        <Version>
+            <Jurisdiction>CD</Jurisdiction>
+            <EffectiveDate>2024-04-01</EffectiveDate>
+            <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
+        </Version>
+    </FormInference>
+    <FormInference formCode="10">
+        <Version>
+            <Jurisdiction>CD</Jurisdiction>
+            <EffectiveDate>2024-04-01</EffectiveDate>
+            <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
+        </Version>
+    </FormInference>
+</FormInferenceConfig>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <FormPatterns>
-    <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG">
+    <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG1">
         <ClausePatternCode/>
         <Code>FormCPP01</Code>
         <CovSysTableValueExistsOnAll/>
@@ -34,6 +34,10 @@
                 <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG"/>
                 <JobType>Renewal</JobType>
             </FormPatternJob>
+            <FormPatternJob public-id="pc:SqQBSUdPohu8_vD8jGKeh">
+                <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG"/>
+                <JobType>Rewrite</JobType>
+            </FormPatternJob>
         </FormPatternJobs>
         <FormPatternProducts>
             <FormPatternProduct public-id="pc:SaS3EDk8sVwcZ2UaHk4BH">
@@ -46,16 +50,6 @@
         <InternalGroupCode/>
         <InternalReissueOnChange>false</InternalReissueOnChange>
         <InternalRemovalEndorsement>false</InternalRemovalEndorsement>
-        <Lookups>
-            <FormPatternLookup public-id="pc:SCWTKQwBG7P_bxd_5eLnM">
-                <Availability>Available</Availability>
-                <EndEffectiveDate/>
-                <FormPattern public-id="pc:SunBuwr7Nw86NEJimgawG"/>
-                <Jurisdiction/>
-                <StartEffectiveDate>2009-05-21 00:00:00.000</StartEffectiveDate>
-                <UWCompanyCode/>
-            </FormPatternLookup>
-        </Lookups>
         <PatternExistsOnAll>false</PatternExistsOnAll>
         <PolicyLinePatternCode/>
         <Priority>1</Priority>
@@ -63,95 +57,99 @@
         <RemovalEndorsementFormNumber/>
         <UseInsteadOfCode/>
     </FormPattern>
-    <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z">
-        <ClausePatternCode/>
-        <Code>FormIL18</Code>
-        <CovSysTableValueExistsOnAll/>
-        <CoverableSysTable/>
-        <CoverableType/>
-        <CoverableTypeKey/>
-        <CoverableTypeKeyExistsOnAll/>
-        <CoverableTypeKeys/>
-        <CoverableTypeList/>
-        <Description>d</Description>
-        <Description_L10N_ARRAY/>
-        <Edition>00 00</Edition>
-        <EndorsementNumbered>true</EndorsementNumbered>
-        <FormNumber>PF 01</FormNumber>
-        <FormPatternAdditionalInsuredTypes/>
-        <FormPatternAdditionalInterestTypes/>
-        <FormPatternClauseCodes/>
-        <FormPatternCovTerms/>
-        <FormPatternCoverableProperties/>
-        <FormPatternCoveragePartTypes/>
-        <FormPatternJobs>
-            <FormPatternJob public-id="pc:S-a7LjZmZOhtijyS-YrPY">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <JobType>Submission</JobType>
-            </FormPatternJob>
-            <FormPatternJob public-id="pc:STxPL-DUqwRS5kDf5rs4C">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <JobType>PolicyChange</JobType>
-            </FormPatternJob>
-            <FormPatternJob public-id="pc:SV6VDhukkcO77iilO4r_b">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <JobType>Rewrite</JobType>
-            </FormPatternJob>
-            <FormPatternJob public-id="pc:SoCd8QBF0cdAoC4IHnv6Y">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <JobType>Renewal</JobType>
-            </FormPatternJob>
-        </FormPatternJobs>
-        <FormPatternProducts>
-            <FormPatternProduct public-id="pc:S5RAmuIy1-QL0WwvcXiY2">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <ProductCode>InlandMarine</ProductCode>
-            </FormPatternProduct>
-            <FormPatternProduct public-id="pc:S9Rw5JEoY8JH66_T3PxHT">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <ProductCode>CommercialProperty</ProductCode>
-            </FormPatternProduct>
-            <FormPatternProduct public-id="pc:SGDFnKqJEyDKsg9c5AwkC">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <ProductCode>BusinessAuto</ProductCode>
-            </FormPatternProduct>
-            <FormPatternProduct public-id="pc:SHMqEeMEEVQdLvGCWW5r6">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <ProductCode>BusinessOwners</ProductCode>
-            </FormPatternProduct>
-            <FormPatternProduct public-id="pc:SKCa7zN1ww1TIuGAv0OxZ">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <ProductCode>PersonalAuto</ProductCode>
-            </FormPatternProduct>
-            <FormPatternProduct public-id="pc:Sih5KLOcqispdSgrJv274">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <ProductCode>CommercialPackage</ProductCode>
-            </FormPatternProduct>
-            <FormPatternProduct public-id="pc:SyL83KbNsoniCUnoeFXU4">
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <ProductCode>GeneralLiability</ProductCode>
-            </FormPatternProduct>
-        </FormPatternProducts>
-        <GenericInferenceClass>gw.forms.generic.GenericAlwaysAddedForm</GenericInferenceClass>
-        <InferenceTime>quote</InferenceTime>
-        <InternalGroupCode/>
-        <InternalReissueOnChange>false</InternalReissueOnChange>
-        <InternalRemovalEndorsement>false</InternalRemovalEndorsement>
-        <Lookups>
-            <FormPatternLookup public-id="pc:S3TF8WlKUaiZwvgX2yT0Y">
-                <Availability>Available</Availability>
-                <EndEffectiveDate/>
-                <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
-                <Jurisdiction/>
-                <StartEffectiveDate>2009-05-21 00:00:00.000</StartEffectiveDate>
-                <UWCompanyCode/>
-            </FormPatternLookup>
-        </Lookups>
-        <PatternExistsOnAll>false</PatternExistsOnAll>
-        <PolicyLinePatternCode/>
-        <Priority>2</Priority>
-        <RefCode/>
-        <RemovalEndorsementFormNumber/>
-        <UseInsteadOfCode/>
-    </FormPattern>
+    <!--  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z">
+          <ClausePatternCode/>
+          <Code>FormIL17</Code>
+          <CovSysTableValueExistsOnAll/>
+          <CoverableSysTable/>
+          <CoverableType/>
+          <CoverableTypeKey/>
+          <CoverableTypeKeyExistsOnAll/>
+          <CoverableTypeKeys/>
+          <CoverableTypeList/>
+          <Description>Common Policy Conditions</Description>
+          <Description_L10N_ARRAY/>
+          <Edition>00 00</Edition>
+          <EndorsementNumbered>true</EndorsementNumbered>
+          <FormNumber>PF 01</FormNumber>
+          <FormPatternAdditionalInsuredTypes/>
+          <FormPatternAdditionalInterestTypes/>
+          <FormPatternClauseCodes/>
+          <FormPatternCovTerms/>
+          <FormPatternCoverableProperties/>
+          <FormPatternCoveragePartTypes/>
+          <FormPatternJobs>
+              <FormPatternJob public-id="pc:S-a7LjZmZOhtijyS-YrPY">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <JobType>Submission</JobType>
+              </FormPatternJob>
+              <FormPatternJob public-id="pc:STxPL-DUqwRS5kDf5rs4C">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <JobType>PolicyChange</JobType>
+              </FormPatternJob>
+              <FormPatternJob public-id="pc:SV6VDhukkcO77iilO4r_b">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <JobType>Rewrite</JobType>
+              </FormPatternJob>
+              <FormPatternJob public-id="pc:SoCd8QBF0cdAoC4IHnv6Y">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <JobType>Renewal</JobType>
+              </FormPatternJob>
+          </FormPatternJobs>
+          <FormPatternProducts>
+              <FormPatternProduct public-id="pc:S5RAmuIy1-QL0WwvcXiY2">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>InlandMarine</ProductCode>
+              </FormPatternProduct>
+              <FormPatternProduct public-id="pc:S5RAmuIy1-QL0WwvcXiY2">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>InlandMarine</ProductCode>
+              </FormPatternProduct>
+              <FormPatternProduct public-id="pc:S9Rw5JEoY8JH66_T3PxHT">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>CommercialProperty</ProductCode>
+              </FormPatternProduct>
+              <FormPatternProduct public-id="pc:SGDFnKqJEyDKsg9c5AwkC">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>BusinessAuto</ProductCode>
+              </FormPatternProduct>
+              <FormPatternProduct public-id="pc:SHMqEeMEEVQdLvGCWW5r6">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>BusinessOwners</ProductCode>
+              </FormPatternProduct>
+              <FormPatternProduct public-id="pc:SKCa7zN1ww1TIuGAv0OxZ">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>PersonalAuto</ProductCode>
+              </FormPatternProduct>
+              <FormPatternProduct public-id="pc:Sih5KLOcqispdSgrJv274">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>CommercialPackage</ProductCode>
+              </FormPatternProduct>
+              <FormPatternProduct public-id="pc:SyL83KbNsoniCUnoeFXU4">
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <ProductCode>GeneralLiability</ProductCode>
+              </FormPatternProduct>
+          </FormPatternProducts>
+          <GenericInferenceClass>gw.forms.generic.GenericAlwaysAddedForm</GenericInferenceClass>
+          <InferenceTime>quote</InferenceTime>
+          <InternalGroupCode/>
+          <InternalReissueOnChange>false</InternalReissueOnChange>
+          <InternalRemovalEndorsement>false</InternalRemovalEndorsement>
+          <Lookups>
+              <FormPatternLookup public-id="pc:S3TF8WlKUaiZwvgX2yT0Y">
+                  <Availability>Available</Availability>
+                  <EndEffectiveDate/>
+                  <FormPattern public-id="pc:S-9htploYbMkn0ULrzG-Z"/>
+                  <Jurisdiction/>
+                  <StartEffectiveDate>2009-05-21 00:00:00.000</StartEffectiveDate>
+                  <UWCompanyCode/>
+              </FormPatternLookup>
+          </Lookups>
+          <PatternExistsOnAll>false</PatternExistsOnAll>
+          <PolicyLinePatternCode/>
+          <Priority>2</Priority>
+          <RefCode/>
+          <RemovalEndorsementFormNumber/>
+          <UseInsteadOfCode/>
+      </FormPattern>-->
 </FormPatterns>

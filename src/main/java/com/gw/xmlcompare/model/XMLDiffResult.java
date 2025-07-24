@@ -1,5 +1,6 @@
 package com.gw.xmlcompare.model;
 
+
 public class XMLDiffResult {
     public String xmlSource;
     public String uniqueKey;
@@ -21,4 +22,31 @@ public class XMLDiffResult {
 
     }
 
+    public String getXmlSource() {
+        return xmlSource;
+    }
+
+    public String getUniqueKey() {
+        return uniqueKey;
+    }
+
+    public String getField() {
+        return field;
+    }
+
+    public String getOldValue() {
+        return oldValue;
+    }
+
+    public String getNewValue() {
+        return newValue;
+    }
+
+    public String getChangeType() {
+        return changeType;
+    }
+
+    public String getCategory() {
+        return category;
+    }
 }
