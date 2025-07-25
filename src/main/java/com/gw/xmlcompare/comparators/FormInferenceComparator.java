@@ -70,11 +70,8 @@ public class FormInferenceComparator {
         Document oldDoc = builder.parse(new File(FORM_1_COMPARE));
         Document newDoc = builder.parse(new File(FORM_2_COMPARE));
 
-        //just load no need to replace root
-        Document oldDocReplaced = replaceRoot(oldDoc, FORM_INFERENCE_ROOT);
-        Document newDocReplaced = replaceRoot(newDoc, FORM_INFERENCE_ROOT);
-        oldFormPatterns = XmlLoaderJaxb.loadXml(oldDocReplaced, FormInferenceConfig.class);
-        newFormPatterns = XmlLoaderJaxb.loadXml(newDocReplaced, FormInferenceConfig.class);
+        oldFormPatterns = XmlLoaderJaxb.loadXml(oldDoc, FormInferenceConfig.class);
+        newFormPatterns = XmlLoaderJaxb.loadXml(newDoc, FormInferenceConfig.class);
     }
 
     private static Map<String, FormInferenceType> toCodeMap(List<FormInferenceType> formInference) {

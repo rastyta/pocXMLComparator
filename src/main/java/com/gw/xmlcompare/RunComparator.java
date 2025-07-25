@@ -11,7 +11,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.util.List;
 
-import static com.gw.xmlcompare.writer.CSVWriter.writeResultsToExcel;
+import static com.gw.xmlcompare.writer.CSVWriter.writeResults;
 
 public class RunComparator {
     public static final String FORM_PATTERN = "FormPattern";
@@ -21,11 +21,12 @@ public class RunComparator {
     public static final String FORM_2 = "FormsToCompare/Form2.xml";
     public static final String FORM_1_COMPARE = FORM_PATH+FORM_1;
     public static final String FORM_2_COMPARE = FORM_PATH+FORM_2;
-    public static final String RESULT_PATH = FORM_PATH+"CSVResult/results.csv";
+    public static final String RESULT_CVS_PATH = FORM_PATH+"CSVResult/results.csv";
+    public static final String RESULT_XLSX_PATH = FORM_PATH+"CSVResult/results.xlsx";
 
     public static void main(String[] args) throws Exception{
         List<XMLDiffResult> results = initProcess();
-        writeResultsToExcel(results, RESULT_PATH);
+        writeResults(results);
     }
 
     private static List<XMLDiffResult> initProcess() throws Exception {

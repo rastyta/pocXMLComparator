@@ -9,43 +9,48 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.FileOutputStream;
 
+import static com.gw.xmlcompare.RunComparator.RESULT_CVS_PATH;
+import static com.gw.xmlcompare.RunComparator.RESULT_XLSX_PATH;
+
 public class CSVWriter {
-    /*public static void writeResultsToCSV(List<XMLDiffResult> results, String filePath) {
-        try (FileWriter writer = new FileWriter(filePath)) {
-            // Write the header
-            writer.append("XML Source,Unique Key,Field/Attribute,Old Value,New Value,Change Type,Change Category\n");
 
-            // Write the data
+    public static void writeResults(List<XMLDiffResult> results) {
+        writeResultsToCSV(results,RESULT_CVS_PATH);
+        writeResultsToExcel(results,RESULT_XLSX_PATH);
+    }
+
+    private static void writeResultsToCSV(List<XMLDiffResult> results, String filePath) {
+        String[] headers = {"XML Source", "Unique Key", "Field/Attribute", "Old Value", "New Value", "Change Type", "Change Category"};
+
+        try (PrintWriter writer = new PrintWriter(new FileWriter(filePath))) {
+            // Escribir cabecera
+            writer.println(String.join(",", headers));
+
+            // Escribir filas
             for (XMLDiffResult result : results) {
-                writer.append(result.xmlSource)
-                        .append(',')
-                        .append(result.uniqueKey)
-                        .append(',')
-                        .append(result.field)
-                        .append(',')
-                        .append(result.oldValue)
-                        .append(',')
-                        .append(result.newValue)
-                        .append(',')
-                        .append(result.changeType)
-                        .append(',')
-                        .append(result.category)
-                        .append('\n');
+                String[] row = {
+                        result.getXmlSource(),
+                        result.getUniqueKey(),
+                        result.getField(),
+                        result.getOldValue(),
+                        result.getNewValue(),
+                        result.getChangeType(),
+                        result.getCategory()
+                };
+                writer.println(String.join(",", row));
             }
-
             System.out.println("CSV file created successfully!");
-
         } catch (IOException e) {
             e.printStackTrace();
-            throw new RuntimeException(e);
         }
-    }*/
+    }
 
-    public static void writeResultsToExcel(List<XMLDiffResult> results, String filePath) {
+    private static void writeResultsToExcel(List<XMLDiffResult> results, String filePath) {
         Workbook workbook = new XSSFWorkbook();
 
         // Create sheets
