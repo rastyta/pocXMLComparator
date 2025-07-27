@@ -12,13 +12,12 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.*;
 
-import static com.gw.xmlcompare.RunComparator.FORM_1_COMPARE;
-import static com.gw.xmlcompare.RunComparator.FORM_2_COMPARE;
 import static com.gw.xmlcompare.comparators.utils.ComparatorUtilities.replaceRoot;
+import static com.gw.xmlcompare.utils.ConstantUtils.*;
 
 public class FormPatternComparator {
 
-    public static final String NEW_ROOT = "FormPatterns";
+
     public static FormPatterns oldFormPatterns;
     public static FormPatterns newFormPatterns;
 
@@ -46,9 +45,9 @@ public class FormPatternComparator {
 
             if (oldFP == null) {
                 //create method and return diff from there
-                results.add(new XMLDiffResult("FormPattern XML", code, "", "N/A", "N/A", "New FORM","New FormPattern XML"));
+                results.add(new XMLDiffResult(FORMS_PATTERNS_XML, code, "", "N/A", "N/A", NEW,"New FormPattern XML"));
             } else if (newFP == null) {
-                results.add(new XMLDiffResult("FormPattern XML", code, "", "N/A", "N/A", "Removed Form", "Removed FormPattern"));
+                results.add(new XMLDiffResult(FORMS_PATTERNS_XML, code, "", "N/A", "N/A", REMOVED, "Removed FormPattern XML"));
             } else {
                 List<XMLDiffResult> diffs = compare(code, oldFP, newFP);
                 results.addAll(diffs);
@@ -58,12 +57,12 @@ public class FormPatternComparator {
     }
 
     public static List<XMLDiffResult> compare(String code, FormPattern oldFP, FormPattern newFP) throws IllegalAccessException {
-        List<XMLDiffResult> diffs = ComparatorUtilities.compareObjectsRecursively(code, oldFP, newFP, "FormPattern");
+        List<XMLDiffResult> diffs = ComparatorUtilities.compareObjectsRecursively(code, oldFP, newFP, FORM_PATTERN, FORMS_PATTERNS_XML);
         if(diffs.isEmpty()){
-            diffs.add(new XMLDiffResult("FormPattern XML",code, null,
+            diffs.add(new XMLDiffResult(FORMS_PATTERNS_XML,code, null,
                     "-",
                     "-",
-                    "No Change", "FormPattern XML"));
+                    NO_CHANGE, FORMS_PATTERNS_XML));
             return diffs;
         }
         return diffs;
@@ -75,8 +74,8 @@ public class FormPatternComparator {
         Document oldDoc = builder.parse(new File(FORM_1_COMPARE));
         Document newDoc = builder.parse(new File(FORM_2_COMPARE));
 
-        Document oldDocReplaced = replaceRoot(oldDoc, NEW_ROOT);
-        Document newDocReplaced = replaceRoot(newDoc, NEW_ROOT);
+        Document oldDocReplaced = replaceRoot(oldDoc, FORM_PATTERNS_ROOT);
+        Document newDocReplaced = replaceRoot(newDoc, FORM_PATTERNS_ROOT);
         oldFormPatterns = XmlLoaderJaxb.loadXml(oldDocReplaced, FormPatterns.class);
         newFormPatterns = XmlLoaderJaxb.loadXml(newDocReplaced, FormPatterns.class);
     }

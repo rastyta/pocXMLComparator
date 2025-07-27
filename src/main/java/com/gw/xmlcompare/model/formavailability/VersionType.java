@@ -44,10 +44,10 @@ public class VersionType {
     protected String jurisdiction;
     @XmlElement(name = "EffectiveDate", required = true)
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar effectiveDate;
+    protected String effectiveDate;
     @XmlElement(name = "ExpiryDate")
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar expiryDate;
+    protected String expiryDate;
     @XmlElement(name = "Depends")
     protected List<DependsType> depends;
     @XmlElement(name = "Available")
@@ -79,13 +79,11 @@ public class VersionType {
 
     /**
      * Gets the value of the effectiveDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link XMLGregorianCalendar }
      */
-    public XMLGregorianCalendar getEffectiveDate() {
+    public String getEffectiveDate() {
         return effectiveDate;
     }
 
@@ -98,18 +96,16 @@ public class VersionType {
      *     
      */
     public void setEffectiveDate(XMLGregorianCalendar value) {
-        this.effectiveDate = value;
+        this.effectiveDate = String.valueOf(value);
     }
 
     /**
      * Gets the value of the expiryDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
+     *
+     * @return possible object is
+     * {@link XMLGregorianCalendar }
      */
-    public XMLGregorianCalendar getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
@@ -122,7 +118,7 @@ public class VersionType {
      *     
      */
     public void setExpiryDate(XMLGregorianCalendar value) {
-        this.expiryDate = value;
+        this.expiryDate = String.valueOf(value);
     }
 
     /**

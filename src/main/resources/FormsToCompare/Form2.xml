@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<FormInferenceConfig>
-    <FormInference formCode="11">
+<AvailabilityConfig>
+    <Container name="CA7AdditionalPersonalInjuryProtectionNYDeathBenPPT" type="Clause">
         <Version>
-            <Jurisdiction>CD</Jurisdiction>
+            <Jurisdiction>NY</Jurisdiction>
             <EffectiveDate>2024-04-01</EffectiveDate>
-            <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
+            <Depends>
+                <On path="/CA7CommAutoLine/CA7PrivatePassenger/CA7PrivatePassengerAddedPersonalInjuryProtectioPPT" function="exist"/>
+            </Depends>
         </Version>
-    </FormInference>
-    <FormInference formCode="13">
+    </Container>
+   <!-- <Container name="CA7DesignatedLocationsProdsAndWorkYouPerformedAggL" type="Clause">
         <Version>
-            <Jurisdiction>CD</Jurisdiction>
-            <EffectiveDate>2024-04-01</EffectiveDate>
-            <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
+            <EffectiveDate>2022-09-01</EffectiveDate>
+            <Depends>
+                <On path="/CA7CommAutoLine/CA7LinePolicyType" op="=" value="Auto Dealers Coverage Form"/>
+            </Depends>
         </Version>
-    </FormInference>
-    <FormInference formCode="10">
-        <Version>
-            <Jurisdiction>CD</Jurisdiction>
-            <EffectiveDate>2024-04-01</EffectiveDate>
-            <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
-        </Version>
-    </FormInference>
-</FormInferenceConfig>
+    </Container>-->
+</AvailabilityConfig>

@@ -12,9 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.*;
 
-import static com.gw.xmlcompare.RunComparator.FORM_1_COMPARE;
-import static com.gw.xmlcompare.RunComparator.FORM_2_COMPARE;
-import static com.gw.xmlcompare.comparators.utils.ComparatorUtilities.replaceRoot;
+import static com.gw.xmlcompare.utils.ConstantUtils.*;
 
 public class FormInferenceComparator {
 
@@ -24,12 +22,12 @@ public class FormInferenceComparator {
     public static FormInferenceConfig newFormPatterns;
 
     public static List<XMLDiffResult> compare(String code, FormInferenceType oldFP, FormInferenceType newFP) throws IllegalAccessException {
-        List<XMLDiffResult> diffs = ComparatorUtilities.compareObjectsRecursively(code, oldFP, newFP, "FormInference");
+        List<XMLDiffResult> diffs = ComparatorUtilities.compareObjectsRecursively(code, oldFP, newFP, FORM_INFERENCE, FORM_INFERENCE_XML);
         if(diffs.isEmpty()){
-            diffs.add(new XMLDiffResult("FormInference XML",code, null,
+            diffs.add(new XMLDiffResult(FORM_INFERENCE_XML,code, null,
                     "-",
                     "-",
-                    "No Change", "FormInference XML"));
+                    NO_CHANGE, FORM_INFERENCE_XML));
             return diffs;
         }
         return diffs;
@@ -53,9 +51,9 @@ public class FormInferenceComparator {
 
             if (oldFP == null) {
                 //create method and return diff from there
-                results.add(new XMLDiffResult("Forms Inference Config XML", code, "", "N/A", "N/A", "New","New Forms Inference Config XML"));
+                results.add(new XMLDiffResult(FORM_INFERENCE_XML, code, "", "N/A", newFP.toString(), NEW,"New Forms Inference Config XML"));
             } else if (newFP == null) {
-                results.add(new XMLDiffResult("Forms Inference Config XML", code, "", "N/A", "N/A", "Removed", "Removed Forms Inference Config XML"));
+                results.add(new XMLDiffResult(FORM_INFERENCE_XML, code, "", oldFP.toString(), "N/A", REMOVED, "Removed Forms Inference Config XML"));
             } else {
                 List<XMLDiffResult> diffs = compare(code, oldFP, newFP);
                 results.addAll(diffs);

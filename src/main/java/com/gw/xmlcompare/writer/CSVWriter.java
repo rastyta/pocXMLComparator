@@ -14,8 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.io.FileOutputStream;
 
-import static com.gw.xmlcompare.RunComparator.RESULT_CVS_PATH;
-import static com.gw.xmlcompare.RunComparator.RESULT_XLSX_PATH;
+import static com.gw.xmlcompare.utils.ConstantUtils.RESULT_CVS_PATH;
+import static com.gw.xmlcompare.utils.ConstantUtils.RESULT_XLSX_PATH;
+
 
 public class CSVWriter {
 

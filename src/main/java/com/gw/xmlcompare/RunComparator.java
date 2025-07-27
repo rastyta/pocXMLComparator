@@ -2,6 +2,7 @@ package com.gw.xmlcompare;
 
 import com.gw.xmlcompare.comparators.FormInferenceComparator;
 import com.gw.xmlcompare.comparators.FormPatternComparator;
+import com.gw.xmlcompare.comparators.FormAvailabilityComparator;
 import com.gw.xmlcompare.model.XMLDiffResult;
 import com.gw.xmlcompare.model.XMLFileType;
 import org.w3c.dom.*;
@@ -11,18 +12,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
 import java.util.List;
 
+import static com.gw.xmlcompare.utils.ConstantUtils.*;
 import static com.gw.xmlcompare.writer.CSVWriter.writeResults;
 
 public class RunComparator {
-    public static final String FORM_PATTERN = "FormPattern";
-    public static final String FORM_INFERENCE = "FormInference";
-    public static final String FORM_PATH = "src/main/resources/";
-    public static final String FORM_1 = "FormsToCompare/Form1.xml";
-    public static final String FORM_2 = "FormsToCompare/Form2.xml";
-    public static final String FORM_1_COMPARE = FORM_PATH+FORM_1;
-    public static final String FORM_2_COMPARE = FORM_PATH+FORM_2;
-    public static final String RESULT_CVS_PATH = FORM_PATH+"CSVResult/results.csv";
-    public static final String RESULT_XLSX_PATH = FORM_PATH+"CSVResult/results.xlsx";
+
 
     public static void main(String[] args) throws Exception{
         List<XMLDiffResult> results = initProcess();
@@ -40,6 +34,8 @@ public class RunComparator {
             results = FormPatternComparator.compareFormPatterns();
         }else if(oldFileType == XMLFileType.Form_Inference){
             results = FormInferenceComparator.compareFormInferencePatterns();
+        }else if(oldFileType == XMLFileType.Container){
+            results = FormAvailabilityComparator.compareConatinerPatterns();
         }
         return results;
     }
@@ -66,6 +62,9 @@ public class RunComparator {
                     return XMLFileType.Form_Patterns;
                 case FORM_INFERENCE:
                     return XMLFileType.Form_Inference;
+                case CONTAINER:
+                    return XMLFileType.Container;
+
             }
         }
         NodeList children = node.getChildNodes();
