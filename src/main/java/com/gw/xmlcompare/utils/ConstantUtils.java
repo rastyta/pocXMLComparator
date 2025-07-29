@@ -5,8 +5,8 @@ public class ConstantUtils {
     public static final String FORM_PATTERN = "FormPattern";
     public static final String FORM_INFERENCE = "FormInference";
     public static final String FORM_PATH = "src/main/resources/";
-    public static final String FORM_1 = "FormsToCompare/FormInference1.xml";
-    public static final String FORM_2 = "FormsToCompare/FormInference2.xml";
+    public static final String FORM_1 = "FormsToCompare/Form1.xml";
+    public static final String FORM_2 = "FormsToCompare/Form2.xml";
     public static final String FORM_1_COMPARE = FORM_PATH+FORM_1;
     public static final String FORM_2_COMPARE = FORM_PATH+FORM_2;
     public static final String RESULT_CVS_PATH = FORM_PATH+"CSVResult/results.csv";
@@ -21,5 +21,7 @@ public class ConstantUtils {
     public static final String PUBLIC_ID = "publicId";
     public static final String CHANGED = "Changed";
     public static final String NO_CHANGE = "No Change";
+    public static final String CLAUSE = "Clause";
+    public static final String SCHEDULE_CONFIG_XML = "Schedule Config XML";
 
 }

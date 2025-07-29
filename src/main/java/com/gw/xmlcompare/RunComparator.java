@@ -3,6 +3,7 @@ package com.gw.xmlcompare;
 import com.gw.xmlcompare.comparators.FormInferenceComparator;
 import com.gw.xmlcompare.comparators.FormPatternComparator;
 import com.gw.xmlcompare.comparators.FormAvailabilityComparator;
+import com.gw.xmlcompare.comparators.FormScheduleComparator;
 import com.gw.xmlcompare.model.XMLDiffResult;
 import com.gw.xmlcompare.model.XMLFileType;
 import org.w3c.dom.*;
@@ -36,6 +37,8 @@ public class RunComparator {
             results = FormInferenceComparator.compareFormInferencePatterns();
         }else if(oldFileType == XMLFileType.Container){
             results = FormAvailabilityComparator.compareConatinerPatterns();
+        }else if(oldFileType == XMLFileType.Clause){
+            results = FormScheduleComparator.compareScheduleConfigPatterns();
         }
         return results;
     }
@@ -64,6 +67,8 @@ public class RunComparator {
                     return XMLFileType.Form_Inference;
                 case CONTAINER:
                     return XMLFileType.Container;
+                case CLAUSE:
+                    return XMLFileType.Clause;
 
             }
         }

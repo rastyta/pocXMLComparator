@@ -3,6 +3,8 @@ package com.gw.xmlcompare.comparators.utils;
 import com.gw.xmlcompare.loader.XmlLoaderJaxb;
 import com.gw.xmlcompare.model.XMLDiffResult;
 import com.gw.xmlcompare.model.formavailability.AvailabilityConfigType;
+import com.gw.xmlcompare.model.formschedule.PropertyInfoType;
+import com.gw.xmlcompare.model.formschedule.PropertyInfoVersionType;
 import org.apache.commons.math3.util.Pair;
 import org.apache.poi.ss.formula.functions.T;
 import org.w3c.dom.Document;
@@ -13,9 +15,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static com.gw.xmlcompare.utils.ConstantUtils.*;
 
@@ -131,4 +131,8 @@ public class ComparatorUtilities {
         doc.appendChild(newRoot);
         return doc;
     }
+
+
+
+
 }
