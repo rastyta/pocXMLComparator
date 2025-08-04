@@ -1,10 +1,8 @@
 
 package com.gw.xmlcompare.model.formschedule;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.*;
+import java.util.Objects;
 
 
 /**
@@ -25,13 +23,25 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "AutoNumberPropertyInfoType")
-public class AutoNumberPropertyInfoType
-    extends BasePropertyInfoType
-{
+@XmlType(name = "AutoNumberPropertyInfoType", propOrder = {
+        "name",
+        "columnName",
+        "columnLabel",
+        "required",
+        "priority"
+})
+public class AutoNumberPropertyInfoType extends BasePropertyInfoType{
 
     @XmlAttribute(name = "name", required = true)
     protected String name;
+    @XmlElement(name = "ColumnName")
+    protected String columnName;
+    @XmlElement(name = "ColumnLabel")
+    protected String columnLabel;
+    @XmlElement(name = "Required")
+    protected Boolean required;
+    @XmlElement(name = "Priority")
+    protected Integer priority;
 
     /**
      * Gets the value of the name property.
@@ -57,4 +67,49 @@ public class AutoNumberPropertyInfoType
         this.name = value;
     }
 
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public String getColumnLabel() {
+        return columnLabel;
+    }
+
+    public void setColumnLabel(String columnLabel) {
+        this.columnLabel = columnLabel;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AutoNumberPropertyInfoType that = (AutoNumberPropertyInfoType) o;
+        return Objects.equals(name, that.name) &&
+                Objects.equals(columnName, that.columnName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, columnName);
+    }
 }

@@ -1,5 +1,5 @@
 
-package com.gw.xmlcompare.model.formschedule;
+package com.gw.xmlcompare.model.formlobfieldmeta;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
@@ -7,18 +7,18 @@ import java.util.List;
 
 
 /**
- * &lt;p&gt;Java class for PropertyInfoType complex type.
+ * &lt;p&gt;Java class for ColumnType complex type.
  * 
  * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
  * 
  * &lt;pre&gt;
- * &amp;lt;complexType name="PropertyInfoType"&amp;gt;
+ * &amp;lt;complexType name="ColumnType"&amp;gt;
  *   &amp;lt;complexContent&amp;gt;
  *     &amp;lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&amp;gt;
  *       &amp;lt;sequence&amp;gt;
- *         &amp;lt;element ref="{}Version" maxOccurs="unbounded"/&amp;gt;
+ *         &amp;lt;element name="Version" type="{}VersionType" maxOccurs="unbounded"/&amp;gt;
  *       &amp;lt;/sequence&amp;gt;
- *       &amp;lt;attribute ref="{}name use="required""/&amp;gt;
+ *       &amp;lt;attribute name="name" use="required" type="{http://www.w3.org/2001/XMLSchema}string" /&amp;gt;
  *     &amp;lt;/restriction&amp;gt;
  *   &amp;lt;/complexContent&amp;gt;
  * &amp;lt;/complexType&amp;gt;
@@ -27,13 +27,13 @@ import java.util.List;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "PropertyInfoType", propOrder = {
+@XmlType(name = "ColumnType", propOrder = {
     "version"
 })
-public class PropertyInfoType extends BasePropertyInfoType {
+public class ColumnType {
 
     @XmlElement(name = "Version", required = true)
-    protected List<PropertyInfoVersionType> version;
+    protected List<VersionType> version;
     @XmlAttribute(name = "name", required = true)
     protected String name;
 
@@ -55,13 +55,13 @@ public class PropertyInfoType extends BasePropertyInfoType {
      * 
      * &lt;p&gt;
      * Objects of the following type(s) are allowed in the list
-     * {@link PropertyInfoVersionType }
+     * {@link VersionType }
      * 
      * 
      */
-    public List<PropertyInfoVersionType> getVersion() {
+    public List<VersionType> getVersion() {
         if (version == null) {
-            version = new ArrayList<PropertyInfoVersionType>();
+            version = new ArrayList<VersionType>();
         }
         return this.version;
     }

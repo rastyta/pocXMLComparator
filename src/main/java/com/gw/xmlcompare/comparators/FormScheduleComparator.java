@@ -1,61 +1,133 @@
 package com.gw.xmlcompare.comparators;
 
+import com.gw.xmlcompare.comparators.utils.ComparatorUtilities;
 import com.gw.xmlcompare.loader.XmlLoaderJaxb;
 import com.gw.xmlcompare.model.XMLDiffResult;
-import com.gw.xmlcompare.model.formschedule.*;
+import com.gw.xmlcompare.model.formschedule.AutoNumberPropertyInfoType;
+import com.gw.xmlcompare.model.formschedule.ClauseType;
+import com.gw.xmlcompare.model.formschedule.PropertyInfoType;
+import com.gw.xmlcompare.model.formschedule.ScheduleConfigType;
 import org.w3c.dom.Document;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.gw.xmlcompare.utils.ConstantUtils.*;
 
+import com.gw.xmlcompare.model.formschedule.*;
+
 public class FormScheduleComparator {
 
-    public static ScheduleConfigType oldFormPatterns;
-    public static ScheduleConfigType newFormPatterns;
     public static List<XMLDiffResult> results = new ArrayList<>();
+    public static final String SCHEDULE_CONFIG_ROOT = "ScheduleConfig";
+    public static ScheduleConfigType oldScheduleConfig;
+    public static ScheduleConfigType newScheduleConfig;
 
-    public static List<XMLDiffResult> compare(String code, ClauseType oldFP, ClauseType newFP) throws Exception {
-        List<XMLDiffResult> diffs = compareClauseType(code, oldFP, newFP);
-        if(diffs.isEmpty()){
-            diffs.add(new XMLDiffResult(SCHEDULE_CONFIG_XML,code, null,
-                    "-",
-                    "-",
-                    NO_CHANGE, SCHEDULE_CONFIG_XML));
-            return diffs;
+    public static List<XMLDiffResult> compare(String code, ClauseType oldConfig, ClauseType newConfig) throws IllegalAccessException {
+        List<XMLDiffResult> diffs = new ArrayList<>();
+
+        // Compare AutoNumberPropertyInfo
+        List<XMLDiffResult> autoNmbrPropInfoListsdiffs = compareAutoNumberPropertyInfo(code, oldConfig, newConfig);
+        diffs.addAll(autoNmbrPropInfoListsdiffs);
+
+        // Compare PropertyInfo lists
+        List<XMLDiffResult> propertyInfodiffs = comparePropertyInfoLists(code, oldConfig, newConfig);
+        diffs.addAll(propertyInfodiffs);
+
+        // If no diffs found, add a no-change result
+        if (diffs.isEmpty()) {
+            diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", code, null, "-", "-", NO_CHANGE, "SCHEDULE_CONFIG_XML"));
         }
         return diffs;
     }
 
-    public static List<XMLDiffResult> compareScheduleConfigPatterns() throws Exception {
-        //Make necessary changes to the XML files before mapping to Java objects
-        //And mapping to Java Object
+    /*public static List<XMLDiffResult> compareScheduleConfigPatterns() throws Exception {
+        // Make necessary changes to the XML files before mapping to Java objects
         makeFileChangesAndLoad();
 
-        Map<String, ClauseType> oldMap = toCodeMap(oldFormPatterns.getClause());
-        Map<String, ClauseType> newMap = toCodeMap(newFormPatterns.getClause());
+        Map<String, ClauseType> oldMap = toPatternMap(oldScheduleConfig.getClause());
+        Map<String, ClauseType> newMap = toPatternMap(newScheduleConfig.getClause());
 
-        Set<String> allCodes = new HashSet<>();
-        allCodes.addAll(oldMap.keySet());
-        allCodes.addAll(newMap.keySet());
+        Set<String> allPatterns = new HashSet<>();
+        allPatterns.addAll(oldMap.keySet());
+        allPatterns.addAll(newMap.keySet());
 
-        for (String code : allCodes) {
-            ClauseType oldFP = oldMap.get(code);
-            ClauseType newFP = newMap.get(code);
+        for (String pattern : allPatterns) {
+            ClauseType oldClause = oldMap.get(pattern);
+            ClauseType newClause = newMap.get(pattern);
 
-            if (oldFP == null) {
-                //create method and return diff from there
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, "", "N/A", newFP.toString(), NEW,"New Schedule Config XML"));
-            } else if (newFP == null) {
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, "", oldFP.toString(), "N/A", REMOVED, "Removed Schedule Config XML"));
+            if (oldClause == null) {
+                results.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "", "N/A", newClause.toString(), NEW, "New Schedule Config XML"));
+            } else if (newClause == null) {
+                results.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "", oldClause.toString(), "N/A", REMOVED, "Removed Schedule Config XML"));
             } else {
-                results.addAll(compare(code, oldFP, newFP));
+                List<XMLDiffResult> diffs = compare(pattern, oldClause, newClause);
+                results.addAll(diffs);
             }
         }
         return results;
+    }*/
+
+    public static List<XMLDiffResult> compareScheduleConfigPatterns() throws Exception {
+        makeFileChangesAndLoad();
+
+        // Step 1: Detect duplicates in old and new
+        List<XMLDiffResult> duplicateResults = new ArrayList<>();
+        duplicateResults.addAll(findDuplicatePatterns(oldScheduleConfig.getClause(), "old"));
+        duplicateResults.addAll(findDuplicatePatterns(newScheduleConfig.getClause(), "new"));
+
+        if (!duplicateResults.isEmpty()) {
+            results.addAll(duplicateResults);
+            return results;
+        }
+
+        // Step 2: Proceed with standard comparison for unique patterns
+        Map<String, ClauseType> oldMap = toPatternMap(oldScheduleConfig.getClause());
+        Map<String, ClauseType> newMap = toPatternMap(newScheduleConfig.getClause());
+
+        Set<String> allPatterns = new HashSet<>();
+        allPatterns.addAll(oldMap.keySet());
+        allPatterns.addAll(newMap.keySet());
+
+        for (String pattern : allPatterns) {
+            ClauseType oldClause = oldMap.get(pattern);
+            ClauseType newClause = newMap.get(pattern);
+
+            if (oldClause == null) {
+                results.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "", "N/A", newClause.toString(), NEW, "New Schedule Config XML"));
+            } else if (newClause == null) {
+                results.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "", oldClause.toString(), "N/A", REMOVED, "Removed Schedule Config XML"));
+            } else {
+                // Compare all fields of Clause, including nested elements
+                results.addAll(compare(pattern, oldClause, newClause));
+            }
+        }
+        return results;
+    }
+
+    private static List<XMLDiffResult> findDuplicatePatterns(List<ClauseType> clauses, String xmlSource) {
+        Map<String, List<ClauseType>> patternMap = new HashMap<>();
+        for (ClauseType clause : clauses) {
+            patternMap.computeIfAbsent(clause.getPattern(), k -> new ArrayList<>()).add(clause);
+        }
+        List<XMLDiffResult> duplicates = new ArrayList<>();
+        for (Map.Entry<String, List<ClauseType>> entry : patternMap.entrySet()) {
+            if (entry.getValue().size() > 1) {
+                duplicates.add(new XMLDiffResult(
+                        "SCHEDULE_CONFIG_XML",
+                        entry.getKey(),
+                        "Clause",
+                        "Duplicate pattern found in " + xmlSource + ": " + entry.getKey(),
+                        "Human interference required",
+                        CHANGED,
+                        "Object"
+                ));
+            }
+        }
+        return duplicates;
     }
 
     private static void makeFileChangesAndLoad() throws Exception {
@@ -64,203 +136,124 @@ public class FormScheduleComparator {
         Document oldDoc = builder.parse(new File(FORM_1_COMPARE));
         Document newDoc = builder.parse(new File(FORM_2_COMPARE));
 
-        oldFormPatterns = XmlLoaderJaxb.loadXml(oldDoc, ScheduleConfigType.class);
-        newFormPatterns = XmlLoaderJaxb.loadXml(newDoc, ScheduleConfigType.class);
+        oldScheduleConfig = XmlLoaderJaxb.loadXml(oldDoc, ScheduleConfigType.class);
+        newScheduleConfig = XmlLoaderJaxb.loadXml(newDoc, ScheduleConfigType.class);
     }
 
-    private static Map<String, ClauseType> toCodeMap(List<ClauseType> formInference) {
+    private static Map<String, ClauseType> toPatternMap(List<ClauseType> clauses) {
         Map<String, ClauseType> map = new HashMap<>();
-        for (ClauseType fp : formInference) {
-            if (fp.getPattern()!= null) {
-                map.put(fp.getPattern(), fp);
+        for (ClauseType clause : clauses) {
+            if (clause.getPattern() != null) {
+                map.put(clause.getPattern(), clause);
             }
         }
         return map;
     }
 
+    private static List<XMLDiffResult> compareAutoNumberPropertyInfo(String pattern, ClauseType oldClause, ClauseType newClause) throws IllegalAccessException {
+        List<XMLDiffResult> diffs = new ArrayList<>();
+        AutoNumberPropertyInfoType oldInfo = oldClause.getAutoNumberPropertyInfoList().isEmpty() ? null : oldClause.getAutoNumberPropertyInfoList().get(0);
+        AutoNumberPropertyInfoType newInfo = newClause.getAutoNumberPropertyInfoList().isEmpty() ? null : newClause.getAutoNumberPropertyInfoList().get(0);
 
-    private static List<XMLDiffResult> compareClauseType(String code, ClauseType oldClause, ClauseType newClause) throws IllegalAccessException {
-        List<XMLDiffResult> results = new ArrayList<>();
+        Set<String> allNames = new HashSet<>();
+        if (oldInfo != null) allNames.add(oldInfo.getName());
+        if (newInfo != null) allNames.add(newInfo.getName());
 
-        List<AutoNumberPropertyInfoType> oldAutoNumberList = new ArrayList<>();
-        List<PropertyInfoType> oldPropertyList = new ArrayList<>();
-        List<AutoNumberPropertyInfoType> newAutoNumberList = new ArrayList<>();
-        List<PropertyInfoType> newPropertyList = new ArrayList<>();
+        for (String name : allNames) {
 
-        // Separate old and new lists into AutoNumberPropertyInfo and PropertyInfo lists
-        for (Object obj : oldClause.getAutoNumberPropertyInfoOrPropertyInfo()) {
-            if (obj instanceof AutoNumberPropertyInfoType) {
-                oldAutoNumberList.add((AutoNumberPropertyInfoType) obj);
-            } else if (obj instanceof PropertyInfoType) {
-                oldPropertyList.add((PropertyInfoType) obj);
-            }
-        }
-
-        for (Object obj : newClause.getAutoNumberPropertyInfoOrPropertyInfo()) {
-            if (obj instanceof AutoNumberPropertyInfoType) {
-                newAutoNumberList.add((AutoNumberPropertyInfoType) obj);
-            } else if (obj instanceof PropertyInfoType) {
-                newPropertyList.add((PropertyInfoType) obj);
-            }
-        }
-
-        // Compare AutoNumberPropertyInfo lists
-        int maxAutoNumberLength = Math.max(oldAutoNumberList.size(), newAutoNumberList.size());
-        for (int i = 0; i < maxAutoNumberLength; i++) {
-            AutoNumberPropertyInfoType oldAutoNumber = i < oldAutoNumberList.size() ? oldAutoNumberList.get(i) : null;
-            AutoNumberPropertyInfoType newAutoNumber = i < newAutoNumberList.size() ? newAutoNumberList.get(i) : null;
-
-            if (oldAutoNumber == null) {
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, "AutoNumberPropertyInfo[" + i + "]", "N/A", newAutoNumber.toString(), NEW, "New AutoNumberPropertyInfo"));
-            } else if (newAutoNumber == null) {
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, "AutoNumberPropertyInfo[" + i + "]", oldAutoNumber.toString(), "N/A", REMOVED, "Removed AutoNumberPropertyInfo"));
+            if (!oldInfo.getName().equalsIgnoreCase(name)) {
+                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, name, "null", newInfo.toString(), NEW, "AutoNumberPropertyInfo"));
+            } else if (!newInfo.getName().equalsIgnoreCase(name)) {
+                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, name, oldInfo.toString(), "null", REMOVED, "AutoNumberPropertyInfo"));
             } else {
-                results.addAll(compareAutoNumberPropertyInfoType(code, "AutoNumberPropertyInfo[" + i + "]", oldAutoNumber, newAutoNumber));
+                diffs.addAll(ComparatorUtilities.compareObjectsRecursively(pattern, oldInfo, newInfo, "AutoNumberPropertyInfo", "SCHEDULE_CONFIG_XML", Arrays.asList("name")));
             }
         }
-
-        // Compare PropertyInfo lists
-        int maxPropertyLength = Math.max(oldPropertyList.size(), newPropertyList.size());
-        for (int i = 0; i < maxPropertyLength; i++) {
-            PropertyInfoType oldProperty = i < oldPropertyList.size() ? oldPropertyList.get(i) : null;
-            PropertyInfoType newProperty = i < newPropertyList.size() ? newPropertyList.get(i) : null;
-
-            if (oldProperty == null) {
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, "PropertyInfo[" + i + "]", "N/A", newProperty.toString(), NEW, "New PropertyInfo"));
-            } else if (newProperty == null) {
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, "PropertyInfo[" + i + "]", oldProperty.toString(), "N/A", REMOVED, "Removed PropertyInfo"));
-            } else {
-                results.addAll(comparePropertyInfoType(code, "PropertyInfo[" + i + "]", oldProperty, newProperty));
-            }
-        }
-
-        return results;
+        return diffs;
     }
 
+    /*private static List<XMLDiffResult> comparePropertyInfoLists(String pattern, ClauseType oldClause, ClauseType newClause) throws IllegalAccessException {
+        List<XMLDiffResult> diffs = new ArrayList<>();
+        List<PropertyInfoType> oldList = oldClause.getPropertyInfoList();
+        List<PropertyInfoType> newList = newClause.getPropertyInfoList();
 
-    private static List<XMLDiffResult> compareAutoNumberPropertyInfoType(String code, String path, AutoNumberPropertyInfoType oldInfo, AutoNumberPropertyInfoType newInfo) {
-        List<XMLDiffResult> results = new ArrayList<>();
+        Map<String, PropertyInfoType> oldMap = oldList.stream().collect(Collectors.toMap(PropertyInfoType::getName, item -> item));
+        Map<String, PropertyInfoType> newMap = newList.stream().collect(Collectors.toMap(PropertyInfoType::getName, item -> item));
 
-        // Compare fields of AutoNumberPropertyInfoType and add differences to results
-        if (!oldInfo.getColumnName().equals(newInfo.getColumnName())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".ColumnName", oldInfo.getColumnName(), newInfo.getColumnName(), CHANGED, "AutoNumberPropertyInfo"));
-        }
-        if (!oldInfo.getColumnLabel().equals(newInfo.getColumnLabel())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".ColumnLabel", oldInfo.getColumnLabel(), newInfo.getColumnLabel(), CHANGED, "AutoNumberPropertyInfo"));
-        }
-        if (!oldInfo.getRequired().equals(newInfo.getRequired())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Required", String.valueOf(oldInfo.getRequired()), String.valueOf(newInfo.getRequired()), CHANGED, "AutoNumberPropertyInfo"));
-        }
-        if (!oldInfo.getPriority().equals(newInfo.getPriority())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Priority", String.valueOf(oldInfo.getPriority()), String.valueOf(newInfo.getPriority()), CHANGED, "AutoNumberPropertyInfo"));
-        }
+        Set<String> allNames = new HashSet<>();
+        allNames.addAll(oldMap.keySet());
+        allNames.addAll(newMap.keySet());
 
-        return results;
+        for (String name : allNames) {
+            PropertyInfoType oldInfo = oldMap.get(name);
+            PropertyInfoType newInfo = newMap.get(name);
+
+            if (oldInfo == null) {
+                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "PropertyInfo[" + name + "]", "null", newInfo.toString(), NEW, "PropertyInfo"));
+            } else if (newInfo == null) {
+                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "PropertyInfo[" + name + "]", oldInfo.toString(), "null", REMOVED, "PropertyInfo"));
+            } else {
+                diffs.addAll(comparePropertyInfoVersions(pattern, oldInfo, newInfo));
+            }
+        }
+        return diffs;
     }
 
-    private static List<XMLDiffResult> comparePropertyInfoType(String code, String path, PropertyInfoType oldInfo, PropertyInfoType newInfo) throws IllegalAccessException {
-        List<XMLDiffResult> results = new ArrayList<>();
-
-        // Compare fields of PropertyInfoType and add differences to results
-        if (!oldInfo.getName().equals(newInfo.getName())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Name", oldInfo.getName(), newInfo.getName(), CHANGED, "PropertyInfo"));
-        }
-
+    private static List<XMLDiffResult> comparePropertyInfoVersions(String pattern, PropertyInfoType oldInfo, PropertyInfoType newInfo) throws IllegalAccessException {
+        List<XMLDiffResult> diffs = new ArrayList<>();
         List<PropertyInfoVersionType> oldVersions = oldInfo.getVersion();
         List<PropertyInfoVersionType> newVersions = newInfo.getVersion();
 
-        int maxLength = Math.max(oldVersions.size(), newVersions.size());
+        List<String> uniqueKeys = Arrays.asList("jurisdiction", "effectiveDate");
 
-        for (int i = 0; i < maxLength; i++) {
-            PropertyInfoVersionType oldVersion = i < oldVersions.size() ? oldVersions.get(i) : null;
-            PropertyInfoVersionType newVersion = i < newVersions.size() ? newVersions.get(i) : null;
+        diffs.addAll(ComparatorUtilities.compareListsByUniqueKey(pattern, oldVersions, newVersions, "PropertyInfo[" + oldInfo.getName() + "].Version", "SCHEDULE_CONFIG_XML", uniqueKeys));
+        return diffs;
+    }*/
+    private static List<XMLDiffResult> comparePropertyInfoLists(String pattern, ClauseType oldClause, ClauseType newClause) throws IllegalAccessException {
+        List<XMLDiffResult> diffs = new ArrayList<>();
+        List<PropertyInfoType> oldList = oldClause.getPropertyInfoList();
+        List<PropertyInfoType> newList = newClause.getPropertyInfoList();
 
-            if (oldVersion == null) {
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Version[" + i + "]", "N/A", newVersion.toString(), NEW, "New Version"));
-            } else if (newVersion == null) {
-                results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Version[" + i + "]", oldVersion.toString(), "N/A", REMOVED, "Removed Version"));
+        Map<String, PropertyInfoType> oldMap = oldList.stream().collect(Collectors.toMap(PropertyInfoType::getName, item -> item));
+        Map<String, PropertyInfoType> newMap = newList.stream().collect(Collectors.toMap(PropertyInfoType::getName, item -> item));
+
+        Set<String> allNames = new HashSet<>();
+        allNames.addAll(oldMap.keySet());
+        allNames.addAll(newMap.keySet());
+
+        for (String name : allNames) {
+            PropertyInfoType oldInfo = oldMap.get(name);
+            PropertyInfoType newInfo = newMap.get(name);
+
+            String propertyInfoPath = "Clause[" + pattern + "].PropertyInfo[" + name + "]";
+
+            if (oldInfo == null) {
+                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, propertyInfoPath, "null", newInfo.toString(), NEW, "PropertyInfo"));
+            } else if (newInfo == null) {
+                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, propertyInfoPath, oldInfo.toString(), "null", REMOVED, "PropertyInfo"));
             } else {
-                results.addAll(comparePropertyInfoVersionType(code, path + ".Version[" + i + "]", oldVersion, newVersion));
+                diffs.addAll(comparePropertyInfoVersions(pattern, oldInfo, newInfo, propertyInfoPath));
             }
         }
-
-        return results;
+        return diffs;
     }
 
-    private static List<XMLDiffResult> comparePropertyInfoVersionType(String code, String path, PropertyInfoVersionType oldVersion, PropertyInfoVersionType newVersion) throws IllegalAccessException {
-        List<XMLDiffResult> results = new ArrayList<>();
+    private static List<XMLDiffResult> comparePropertyInfoVersions(String pattern, PropertyInfoType oldInfo, PropertyInfoType newInfo, String propertyInfoPath) throws IllegalAccessException {
+        List<XMLDiffResult> diffs = new ArrayList<>();
+        List<PropertyInfoVersionType> oldVersions = oldInfo.getVersion();
+        List<PropertyInfoVersionType> newVersions = newInfo.getVersion();
 
-        // Compare fields of PropertyInfoVersionType and add differences to results
+        List<String> uniqueKeys = Arrays.asList("jurisdiction", "effectiveDate");
 
-        if (!Objects.equals(oldVersion.getColumnName(), newVersion.getColumnName())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".ColumnName", oldVersion.getColumnName(), newVersion.getColumnName(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getColumnLabel(), newVersion.getColumnLabel())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".ColumnLabel", oldVersion.getColumnLabel(), newVersion.getColumnLabel(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getRequired(), newVersion.getRequired())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Required", String.valueOf(oldVersion.getRequired()), String.valueOf(newVersion.getRequired()), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getPriority(), newVersion.getPriority())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Priority", String.valueOf(oldVersion.getPriority()), String.valueOf(newVersion.getPriority()), CHANGED, "PropertyInfoVersion"));
-        }
-
-        if (!oldVersion.getType().equals(newVersion.getType())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Type", oldVersion.getType().toString(), newVersion.getType().toString(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getScheduledItemType(), newVersion.getScheduledItemType())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".ScheduledItemType", oldVersion.getScheduledItemType(), newVersion.getScheduledItemType(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getDefault(), newVersion.getDefault())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + "._default", oldVersion.getDefault(), newVersion.getDefault(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.isIsKey(), newVersion.isIsKey())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".IsKey", String.valueOf(oldVersion.isIsKey()), String.valueOf(newVersion.isIsKey()), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getMinimum(), newVersion.getMinimum())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Minimum", String.valueOf(oldVersion.getMinimum()), String.valueOf(newVersion.getMinimum()), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getMaximum(), newVersion.getMaximum())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Maximum", String.valueOf(oldVersion.getMaximum()), String.valueOf(newVersion.getMaximum()), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getMethodExpression(), newVersion.getMethodExpression())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".MethodExpression", oldVersion.getMethodExpression(), newVersion.getMethodExpression(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getTypeList(), newVersion.getTypeList())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".TypeList", oldVersion.getTypeList(), newVersion.getTypeList(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getTypeFilter(), newVersion.getTypeFilter())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".TypeFilter", oldVersion.getTypeFilter(), newVersion.getTypeFilter(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getValueRangeGetter(), newVersion.getValueRangeGetter())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".ValueRangeGetter", oldVersion.getValueRangeGetter(), newVersion.getValueRangeGetter(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getOptionGroupLabelMethodExpression(), newVersion.getOptionGroupLabelMethodExpression())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".OptionGroupLabelMethodExpression", oldVersion.getOptionGroupLabelMethodExpression(), newVersion.getOptionGroupLabelMethodExpression(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getOptionLabelMethodExpression(), newVersion.getOptionLabelMethodExpression())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".OptionLabelMethodExpression", oldVersion.getOptionLabelMethodExpression(), newVersion.getOptionLabelMethodExpression(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getJurisdiction(), newVersion.getJurisdiction())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Jurisdiction", oldVersion.getJurisdiction(), newVersion.getJurisdiction(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getEffectiveDate(), newVersion.getEffectiveDate())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".EffectiveDate", oldVersion.getEffectiveDate(), newVersion.getEffectiveDate(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.getExpirationDate(), newVersion.getExpirationDate())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".ExpirationDate", oldVersion.getExpirationDate(), newVersion.getExpirationDate(), CHANGED, "PropertyInfoVersion"));
-        }
-        if (!Objects.equals(oldVersion.isAvailable(), newVersion.isAvailable())) {
-            results.add(new XMLDiffResult(SCHEDULE_CONFIG_XML, code, path + ".Available", String.valueOf(oldVersion.isAvailable()), String.valueOf(newVersion.isAvailable()), CHANGED, "PropertyInfoVersion"));
-        }
-
-        return results;
+        // This will produce paths like Clause[W1].PropertyInfo[ABCD].Version[MA2023-07-01]
+        diffs.addAll(ComparatorUtilities.compareListsByUniqueKey(
+                pattern,
+                oldVersions,
+                newVersions,
+                propertyInfoPath + ".Version",
+                "SCHEDULE_CONFIG_XML",
+                uniqueKeys
+        ));
+        return diffs;
     }
-
-
-
 }
-
-
-
-

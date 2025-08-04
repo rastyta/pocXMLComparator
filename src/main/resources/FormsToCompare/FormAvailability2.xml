@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <AvailabilityConfig>
-    <Container name="CA7AdditionalPersonalInjuryProtectionNYDeathBenPPT" type="Clause">
+    <Container name="CA7PPT" type="Clause">
+        <Version>
+            <Jurisdiction>NY</Jurisdiction>
+            <EffectiveDate>2011-11-01</EffectiveDate>
+            <Depends>
+                <On path="/PPT" function="exist"/>
+            </Depends>
+            <Depends>
+                <On path="/PPT1" function="exist"/>
+            </Depends>
+        </Version>
+
+    </Container>
+    <!--<Container name="CA7PPT" type="Clause">
         <Version>
             <Jurisdiction>NY</Jurisdiction>
             <EffectiveDate>2024-04-01</EffectiveDate>
             <Depends>
-                <On path="/CA7CommAutoLine/CA7PrivatePassenger/CA7PrivatePassengerAddedPersonalInjuryProtectioPPT" function="exist"/>
-            </Depends>
-        </Version>
-        <Version>
-            <Jurisdiction>PY</Jurisdiction>
-            <EffectiveDate>2024-04-01</EffectiveDate>
-            <Depends>
-                <On path="/CA7CommAutoLine/CA7PrivatePassenger/CA7PrivatePassengerAddedPersonalInjuryProtectioPPT" function="exist"/>
-            </Depends>
-        </Version>
-    </Container>
-   <!-- <Container name="CA7DesignatedLocationsProdsAndWorkYouPerformedAggL" type="Clause">
-        <Version>
-            <EffectiveDate>2022-09-01</EffectiveDate>
-            <Depends>
-                <On path="/CA7CommAutoLine/CA7LinePolicyType" op="=" value="Auto Dealers Coverage Form"/>
+                <On path="/PPT" function="exist"/>
+                <On path="/PPT1" function="exist"/>
             </Depends>
         </Version>
     </Container>-->

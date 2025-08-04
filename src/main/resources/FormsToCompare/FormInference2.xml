@@ -2,18 +2,38 @@
 <FormInferenceConfig>
     <FormInference formCode="11">
         <Version>
-            <Jurisdiction>CD</Jurisdiction>
-            <EffectiveDate>2011-11-11</EffectiveDate>
+            <Jurisdiction>AZ</Jurisdiction>
+            <EffectiveDate>2024-01-01</EffectiveDate>
+            <Available>false</Available>
+            <ClausePatternCodes>
+                <ClausePatternCode>def</ClausePatternCode>
+                <ClausePatternCode>abcd</ClausePatternCode>
+            </ClausePatternCodes>
         </Version>
         <Version>
-            <Jurisdiction>PP</Jurisdiction>
+            <Jurisdiction>AP</Jurisdiction>
+            <EffectiveDate>2024-01-01</EffectiveDate>
+            <Available>true</Available>
+            <ClausePatternCodes>
+                <ClausePatternCode>abcd</ClausePatternCode>
+            </ClausePatternCodes>
         </Version>
+
     </FormInference>
-    <FormInference formCode="10">
-        <Version>
-            <Jurisdiction>CD</Jurisdiction>
-            <EffectiveDate>2024-04-01</EffectiveDate>
-            <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
-        </Version>
-    </FormInference>
+
+
+    <!--  <FormInference formCode="09">
+          <Version>
+              <Jurisdiction>CD</Jurisdiction>
+              <EffectiveDate>2024-04-01</EffectiveDate>
+              <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
+          </Version>
+      </FormInference>
+      <FormInference formCode="10">
+          <Version>
+              <Jurisdiction>CD</Jurisdiction>
+              <EffectiveDate>2024-04-01</EffectiveDate>
+              <InferenceClass>gw.lob.ca7.forms.generated.ny.v04012024.CA01671119</InferenceClass>
+          </Version>
+      </FormInference>-->
 </FormInferenceConfig>

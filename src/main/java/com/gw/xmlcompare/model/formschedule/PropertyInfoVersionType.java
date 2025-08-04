@@ -6,60 +6,61 @@ import javax.xml.bind.annotation.*;
 
 /**
  * &lt;p&gt;Java class for PropertyInfoVersionType complex type.
- * 
+ * <p>
  * &lt;p&gt;The following schema fragment specifies the expected content contained within this class.
- * 
+ * <p>
  * &lt;pre&gt;
  * &amp;lt;complexType name="PropertyInfoVersionType"&amp;gt;
- *   &amp;lt;complexContent&amp;gt;
- *     &amp;lt;extension base="{}BasePropertyInfoType"&amp;gt;
- *       &amp;lt;sequence&amp;gt;
- *         &amp;lt;element ref="{}Type"/&amp;gt;
- *         &amp;lt;element ref="{}ScheduledItemType" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}Default" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}IsKey" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}Minimum" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}Maximum" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}MethodExpression" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}TypeList" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}TypeFilter" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}ValueRangeGetter" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}OptionGroupLabelMethodExpression" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}OptionLabelMethodExpression" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}Jurisdiction" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}EffectiveDate" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}ExpirationDate" minOccurs="0"/&amp;gt;
- *         &amp;lt;element ref="{}Available" minOccurs="0"/&amp;gt;
- *       &amp;lt;/sequence&amp;gt;
- *     &amp;lt;/extension&amp;gt;
- *   &amp;lt;/complexContent&amp;gt;
+ * &amp;lt;complexContent&amp;gt;
+ * &amp;lt;extension base="{}BasePropertyInfoType"&amp;gt;
+ * &amp;lt;sequence&amp;gt;
+ * &amp;lt;element ref="{}Type"/&amp;gt;
+ * &amp;lt;element ref="{}ScheduledItemType" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}Default" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}IsKey" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}Minimum" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}Maximum" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}MethodExpression" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}TypeList" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}TypeFilter" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}ValueRangeGetter" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}OptionGroupLabelMethodExpression" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}OptionLabelMethodExpression" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}Jurisdiction" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}EffectiveDate" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}ExpirationDate" minOccurs="0"/&amp;gt;
+ * &amp;lt;element ref="{}Available" minOccurs="0"/&amp;gt;
+ * &amp;lt;/sequence&amp;gt;
+ * &amp;lt;/extension&amp;gt;
+ * &amp;lt;/complexContent&amp;gt;
  * &amp;lt;/complexType&amp;gt;
  * &lt;/pre&gt;
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "PropertyInfoVersionType", propOrder = {
-    "type",
-    "scheduledItemType",
-    "_default",
-    "isKey",
-    "minimum",
-    "maximum",
-    "methodExpression",
-    "typeList",
-    "typeFilter",
-    "valueRangeGetter",
-    "optionGroupLabelMethodExpression",
-    "optionLabelMethodExpression",
-    "jurisdiction",
-    "effectiveDate",
-    "expirationDate",
-    "available"
+        "type",
+        "scheduledItemType",
+        "_default",
+        "isKey",
+        "minimum",
+        "maximum",
+        "methodExpression",
+        "typeList",
+        "typeFilter",
+        "valueRangeGetter",
+        "optionGroupLabelMethodExpression",
+        "optionLabelMethodExpression",
+        "jurisdiction",
+        "effectiveDate",
+        "expirationDate",
+        "available",
+        "columnName",
+        "columnLabel",
+        "required",
+        "priority"
+
 })
-public class PropertyInfoVersionType
-    extends BasePropertyInfoType
-{
+public class PropertyInfoVersionType extends BasePropertyInfoType {
 
     @XmlElement(name = "Type", required = true)
     @XmlSchemaType(name = "string")
@@ -94,14 +95,20 @@ public class PropertyInfoVersionType
     protected String expirationDate;
     @XmlElement(name = "Available")
     protected Boolean available;
+    @XmlElement(name = "ColumnName")
+    protected String columnName;
+    @XmlElement(name = "ColumnLabel")
+    protected String columnLabel;
+    @XmlElement(name = "Required")
+    protected Boolean required;
+    @XmlElement(name = "Priority")
+    protected Integer priority;
 
     /**
      * Gets the value of the type property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link PropertyInfoEnum }
-     *     
+     *
+     * @return possible object is
+     * {@link PropertyInfoEnum }
      */
     public PropertyInfoEnum getType() {
         return type;
@@ -109,11 +116,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the type property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link PropertyInfoEnum }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link PropertyInfoEnum }
      */
     public void setType(PropertyInfoEnum value) {
         this.type = value;
@@ -121,11 +126,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the scheduledItemType property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getScheduledItemType() {
         return scheduledItemType;
@@ -133,11 +136,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the scheduledItemType property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setScheduledItemType(String value) {
         this.scheduledItemType = value;
@@ -145,11 +146,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the default property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getDefault() {
         return _default;
@@ -157,11 +156,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the default property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setDefault(String value) {
         this._default = value;
@@ -169,11 +166,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the isKey property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
+     *
+     * @return possible object is
+     * {@link Boolean }
      */
     public Boolean isIsKey() {
         return isKey;
@@ -181,11 +176,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the isKey property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Boolean }
      */
     public void setIsKey(Boolean value) {
         this.isKey = value;
@@ -193,11 +186,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the minimum property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getMinimum() {
         return minimum;
@@ -205,11 +196,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the minimum property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setMinimum(Integer value) {
         this.minimum = value;
@@ -217,11 +206,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the maximum property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Integer }
-     *     
+     *
+     * @return possible object is
+     * {@link Integer }
      */
     public Integer getMaximum() {
         return maximum;
@@ -229,11 +216,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the maximum property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Integer }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Integer }
      */
     public void setMaximum(Integer value) {
         this.maximum = value;
@@ -241,11 +226,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the methodExpression property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getMethodExpression() {
         return methodExpression;
@@ -253,11 +236,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the methodExpression property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setMethodExpression(String value) {
         this.methodExpression = value;
@@ -265,11 +246,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the typeList property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getTypeList() {
         return typeList;
@@ -277,11 +256,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the typeList property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setTypeList(String value) {
         this.typeList = value;
@@ -289,11 +266,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the typeFilter property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getTypeFilter() {
         return typeFilter;
@@ -301,11 +276,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the typeFilter property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setTypeFilter(String value) {
         this.typeFilter = value;
@@ -313,11 +286,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the valueRangeGetter property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getValueRangeGetter() {
         return valueRangeGetter;
@@ -325,11 +296,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the valueRangeGetter property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setValueRangeGetter(String value) {
         this.valueRangeGetter = value;
@@ -337,11 +306,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the optionGroupLabelMethodExpression property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getOptionGroupLabelMethodExpression() {
         return optionGroupLabelMethodExpression;
@@ -349,11 +316,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the optionGroupLabelMethodExpression property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setOptionGroupLabelMethodExpression(String value) {
         this.optionGroupLabelMethodExpression = value;
@@ -361,11 +326,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the optionLabelMethodExpression property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getOptionLabelMethodExpression() {
         return optionLabelMethodExpression;
@@ -373,11 +336,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the optionLabelMethodExpression property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setOptionLabelMethodExpression(String value) {
         this.optionLabelMethodExpression = value;
@@ -385,11 +346,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the jurisdiction property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getJurisdiction() {
         return jurisdiction;
@@ -397,11 +356,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the jurisdiction property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setJurisdiction(String value) {
         this.jurisdiction = value;
@@ -409,11 +366,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the effectiveDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getEffectiveDate() {
         return effectiveDate;
@@ -421,11 +376,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the effectiveDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setEffectiveDate(String value) {
         this.effectiveDate = value;
@@ -433,11 +386,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the expirationDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
+     *
+     * @return possible object is
+     * {@link String }
      */
     public String getExpirationDate() {
         return expirationDate;
@@ -445,11 +396,9 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the expirationDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link String }
      */
     public void setExpirationDate(String value) {
         this.expirationDate = value;
@@ -457,11 +406,9 @@ public class PropertyInfoVersionType
 
     /**
      * Gets the value of the available property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link Boolean }
-     *     
+     *
+     * @return possible object is
+     * {@link Boolean }
      */
     public Boolean isAvailable() {
         return available;
@@ -469,14 +416,63 @@ public class PropertyInfoVersionType
 
     /**
      * Sets the value of the available property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link Boolean }
-     *     
+     *
+     * @param value allowed object is
+     *              {@link Boolean }
      */
     public void setAvailable(Boolean value) {
         this.available = value;
     }
 
+    public String get_default() {
+        return _default;
+    }
+
+    public void set_default(String _default) {
+        this._default = _default;
+    }
+
+    public Boolean getKey() {
+        return isKey;
+    }
+
+    public void setKey(Boolean key) {
+        isKey = key;
+    }
+
+    public String getColumnName() {
+        return columnName;
+    }
+
+    public void setColumnName(String columnName) {
+        this.columnName = columnName;
+    }
+
+    public Boolean getAvailable() {
+        return available;
+    }
+
+    public String getColumnLabel() {
+        return columnLabel;
+    }
+
+    public void setColumnLabel(String columnLabel) {
+        this.columnLabel = columnLabel;
+    }
+
+    public Boolean getRequired() {
+        return required;
+    }
+
+    public void setRequired(Boolean required) {
+        this.required = required;
+    }
+
+    public Integer getPriority() {
+        return priority;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
 }

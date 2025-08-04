@@ -1,8 +1,8 @@
 package com.gw.xmlcompare;
 
 import com.gw.xmlcompare.comparators.FormInferenceComparator;
-import com.gw.xmlcompare.comparators.FormPatternComparator;
 import com.gw.xmlcompare.comparators.FormAvailabilityComparator;
+import com.gw.xmlcompare.comparators.FormPatternComparator;
 import com.gw.xmlcompare.comparators.FormScheduleComparator;
 import com.gw.xmlcompare.model.XMLDiffResult;
 import com.gw.xmlcompare.model.XMLFileType;
@@ -36,7 +36,7 @@ public class RunComparator {
         }else if(oldFileType == XMLFileType.Form_Inference){
             results = FormInferenceComparator.compareFormInferencePatterns();
         }else if(oldFileType == XMLFileType.Container){
-            results = FormAvailabilityComparator.compareConatinerPatterns();
+            results = FormAvailabilityComparator.compareAvailabilityConfigPatterns();
         }else if(oldFileType == XMLFileType.Clause){
             results = FormScheduleComparator.compareScheduleConfigPatterns();
         }

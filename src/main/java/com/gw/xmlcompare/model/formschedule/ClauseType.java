@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 
 /**
@@ -47,6 +48,20 @@ public class ClauseType {
     protected List<ItemClauseType> itemClause;
     @XmlAttribute(name = "pattern", required = true)
     protected String pattern;
+
+    public List<AutoNumberPropertyInfoType> getAutoNumberPropertyInfoList() {
+        return autoNumberPropertyInfoOrPropertyInfo.stream()
+                .filter(AutoNumberPropertyInfoType.class::isInstance)
+                .map(AutoNumberPropertyInfoType.class::cast)
+                .collect(Collectors.toList());
+    }
+
+    public List<PropertyInfoType> getPropertyInfoList() {
+        return autoNumberPropertyInfoOrPropertyInfo.stream()
+                .filter(PropertyInfoType.class::isInstance)
+                .map(PropertyInfoType.class::cast)
+                .collect(Collectors.toList());
+    }
 
     /**
      * Gets the value of the autoNumberPropertyInfoOrPropertyInfo property.
