@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LobFieldMeta>
+    <Entity name="ABCD">
+        <Column name="City">
+            <Version>
+                <Label>entity.WCMLocation.City</Label>
+                <WidgetType>Range</WidgetType>
+                <EffectiveDate>2024-01-01</EffectiveDate>
+                <Priority>400</Priority>
+                <Editable>true</Editable>
+                <Available>true</Available>
+                <Visible>true</Visible>
+                <Required>false</Required>
+            </Version>
+            <Version>
+                <Jurisdiction>IN</Jurisdiction>
+                <Label>Web.Policy.WCM.WCMLocation.City.IN</Label>
+                <WidgetType>Range</WidgetType>
+                <EffectiveDate>2024-01-01</EffectiveDate>
+                <Priority>400</Priority>
+                <Editable>true</Editable>
+                <Available>true</Available>
+                <Visible>true</Visible>
+                <Required>false</Required>
+            </Version>
+        </Column>
+        <Column name="City1">
+            <Version>
+                <Label>entity.WCMLocation.City</Label>
+                <WidgetType>Range</WidgetType>
+                <EffectiveDate>2024-01-01</EffectiveDate>
+                <Priority>400</Priority>
+                <Editable>true</Editable>
+                <Available>true</Available>
+                <Visible>true</Visible>
+                <Required>false</Required>
+            </Version>
+            <Version>
+                <Jurisdiction>IN</Jurisdiction>
+                <Label>Web.Policy.WCM.WCMLocation.City.IN</Label>
+                <WidgetType>Range</WidgetType>
+                <EffectiveDate>2024-01-01</EffectiveDate>
+                <Priority>400</Priority>
+                <Editable>true</Editable>
+                <Available>true</Available>
+                <Visible>true</Visible>
+                <Required>false</Required>
+            </Version>
+        </Column>
+    </Entity>
+    <Entity name="WCMCoveredEmployee">
+        <Column name="AdmiraltyClassCodeIndicator">
+            <Version>
+                <Label>entity.WCMCoveredEmployee.AdmiraltyClassCodeIndicator</Label>
+                <WidgetType>Range</WidgetType>
+                <EffectiveDate>2024-01-01</EffectiveDate>
+                <Priority>1000</Priority>
+                <Available>true</Available>
+                <Visible>false</Visible>
+                <Required>true</Required>
+                <DefaultValue>0</DefaultValue>
+            </Version>
+        </Column>
+    </Entity>
+</LobFieldMeta>

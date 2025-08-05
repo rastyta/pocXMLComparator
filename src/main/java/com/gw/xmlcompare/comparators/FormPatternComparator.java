@@ -39,32 +39,6 @@ public class FormPatternComparator {
         return diffs;
     }
 
-    /*public static List<XMLDiffResult> compareFormPatterns() throws Exception {
-        // Make necessary changes to the XML files before mapping to Java objects
-        makeFileChangesAndLoad();
-
-        Map<String, FormPattern> oldMap = toCodeMap(oldFormPatternsConfig.getFormPattern());
-        Map<String, FormPattern> newMap = toCodeMap(newFormPatternsConfig.getFormPattern());
-
-        Set<String> allCodes = new HashSet<>();
-        allCodes.addAll(oldMap.keySet());
-        allCodes.addAll(newMap.keySet());
-
-        for (String code : allCodes) {
-            FormPattern oldFormPattern = oldMap.get(code);
-            FormPattern newFormPattern = newMap.get(code);
-
-            if (oldFormPattern == null) {
-                results.add(new XMLDiffResult("FORM_PATTERNS_CONFIG_XML", code, "", "N/A", newFormPattern.toString(), NEW, "New Form Patterns Config XML"));
-            } else if (newFormPattern == null) {
-                results.add(new XMLDiffResult("FORM_PATTERNS_CONFIG_XML", code, "", oldFormPattern.toString(), "N/A", REMOVED, "Removed Form Patterns Config XML"));
-            } else {
-                List<XMLDiffResult> diffs = compare(code, oldFormPattern, newFormPattern);
-                results.addAll(diffs);
-            }
-        }
-        return results;
-    }*/
 
     public static List<XMLDiffResult> compareFormPatterns() throws Exception {
         makeFileChangesAndLoad();
@@ -169,17 +143,6 @@ public class FormPatternComparator {
 
         return diffs;
     }
-
-    /*private static List<XMLDiffResult> compareFormPatternLookupLists(String code, FormPattern oldFormPattern, FormPattern newFormPattern) throws IllegalAccessException {
-        List<XMLDiffResult> diffs = new ArrayList<>();
-        List<FormPatternLookup> oldList = oldFormPattern.getLookups().getFormPatternLookup();
-        List<FormPatternLookup> newList = newFormPattern.getLookups().getFormPatternLookup();
-
-        List<String> uniqueKeys = UniqueKeyConfig.getUniqueKeys("FormPatternLookup");
-
-        diffs.addAll(ComparatorUtilities.compareListsByUniqueKey(code, oldList, newList, "FormPattern", "FORM_PATTERNS_CONFIG_XML", uniqueKeys));
-        return diffs;
-    }*/
 
     private static List<XMLDiffResult> compareFormPatternLookupLists(String code, FormPattern oldFormPattern, FormPattern newFormPattern) throws IllegalAccessException {
         List<XMLDiffResult> diffs = new ArrayList<>();

@@ -2,7 +2,6 @@
 package com.gw.xmlcompare.model.formavailability;
 
 import javax.xml.bind.annotation.*;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,47 +76,23 @@ public class VersionType {
         this.jurisdiction = value;
     }
 
-    /**
-     * Gets the value of the effectiveDate property.
-     *
-     * @return possible object is
-     * {@link XMLGregorianCalendar }
-     */
+
     public String getEffectiveDate() {
         return effectiveDate;
     }
 
-    /**
-     * Sets the value of the effectiveDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setEffectiveDate(XMLGregorianCalendar value) {
+
+    public void setEffectiveDate(String value) {
         this.effectiveDate = String.valueOf(value);
     }
 
-    /**
-     * Gets the value of the expiryDate property.
-     *
-     * @return possible object is
-     * {@link XMLGregorianCalendar }
-     */
+
     public String getExpiryDate() {
         return expiryDate;
     }
 
-    /**
-     * Sets the value of the expiryDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setExpiryDate(XMLGregorianCalendar value) {
+
+    public void setExpiryDate(String value) {
         this.expiryDate = String.valueOf(value);
     }
 

@@ -2,7 +2,6 @@
 package com.gw.xmlcompare.model.formlobfieldmeta;
 
 import javax.xml.bind.annotation.*;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigInteger;
 
 
@@ -69,10 +68,10 @@ public class VersionType {
     protected String widgetType;
     @XmlElement(name = "EffectiveDate")
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar effectiveDate;
+    protected String effectiveDate;
     @XmlElement(name = "ExpiryDate")
     @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar expiryDate;
+    protected String expiryDate;
     @XmlElement(name = "Priority")
     protected BigInteger priority;
     @XmlElement(name = "Editable")
@@ -166,51 +165,22 @@ public class VersionType {
         this.widgetType = value;
     }
 
-    /**
-     * Gets the value of the effectiveDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getEffectiveDate() {
+
+    public String getEffectiveDate() {
         return effectiveDate;
     }
 
-    /**
-     * Sets the value of the effectiveDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setEffectiveDate(XMLGregorianCalendar value) {
+
+    public void setEffectiveDate(String value) {
         this.effectiveDate = value;
     }
 
-    /**
-     * Gets the value of the expiryDate property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getExpiryDate() {
+    public String getExpiryDate() {
         return expiryDate;
     }
 
-    /**
-     * Sets the value of the expiryDate property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setExpiryDate(XMLGregorianCalendar value) {
+
+    public void setExpiryDate(String value) {
         this.expiryDate = value;
     }
 

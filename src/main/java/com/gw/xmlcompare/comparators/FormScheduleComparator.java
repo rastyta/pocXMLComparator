@@ -44,33 +44,6 @@ public class FormScheduleComparator {
         return diffs;
     }
 
-    /*public static List<XMLDiffResult> compareScheduleConfigPatterns() throws Exception {
-        // Make necessary changes to the XML files before mapping to Java objects
-        makeFileChangesAndLoad();
-
-        Map<String, ClauseType> oldMap = toPatternMap(oldScheduleConfig.getClause());
-        Map<String, ClauseType> newMap = toPatternMap(newScheduleConfig.getClause());
-
-        Set<String> allPatterns = new HashSet<>();
-        allPatterns.addAll(oldMap.keySet());
-        allPatterns.addAll(newMap.keySet());
-
-        for (String pattern : allPatterns) {
-            ClauseType oldClause = oldMap.get(pattern);
-            ClauseType newClause = newMap.get(pattern);
-
-            if (oldClause == null) {
-                results.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "", "N/A", newClause.toString(), NEW, "New Schedule Config XML"));
-            } else if (newClause == null) {
-                results.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "", oldClause.toString(), "N/A", REMOVED, "Removed Schedule Config XML"));
-            } else {
-                List<XMLDiffResult> diffs = compare(pattern, oldClause, newClause);
-                results.addAll(diffs);
-            }
-        }
-        return results;
-    }*/
-
     public static List<XMLDiffResult> compareScheduleConfigPatterns() throws Exception {
         makeFileChangesAndLoad();
 
@@ -172,43 +145,6 @@ public class FormScheduleComparator {
         return diffs;
     }
 
-    /*private static List<XMLDiffResult> comparePropertyInfoLists(String pattern, ClauseType oldClause, ClauseType newClause) throws IllegalAccessException {
-        List<XMLDiffResult> diffs = new ArrayList<>();
-        List<PropertyInfoType> oldList = oldClause.getPropertyInfoList();
-        List<PropertyInfoType> newList = newClause.getPropertyInfoList();
-
-        Map<String, PropertyInfoType> oldMap = oldList.stream().collect(Collectors.toMap(PropertyInfoType::getName, item -> item));
-        Map<String, PropertyInfoType> newMap = newList.stream().collect(Collectors.toMap(PropertyInfoType::getName, item -> item));
-
-        Set<String> allNames = new HashSet<>();
-        allNames.addAll(oldMap.keySet());
-        allNames.addAll(newMap.keySet());
-
-        for (String name : allNames) {
-            PropertyInfoType oldInfo = oldMap.get(name);
-            PropertyInfoType newInfo = newMap.get(name);
-
-            if (oldInfo == null) {
-                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "PropertyInfo[" + name + "]", "null", newInfo.toString(), NEW, "PropertyInfo"));
-            } else if (newInfo == null) {
-                diffs.add(new XMLDiffResult("SCHEDULE_CONFIG_XML", pattern, "PropertyInfo[" + name + "]", oldInfo.toString(), "null", REMOVED, "PropertyInfo"));
-            } else {
-                diffs.addAll(comparePropertyInfoVersions(pattern, oldInfo, newInfo));
-            }
-        }
-        return diffs;
-    }
-
-    private static List<XMLDiffResult> comparePropertyInfoVersions(String pattern, PropertyInfoType oldInfo, PropertyInfoType newInfo) throws IllegalAccessException {
-        List<XMLDiffResult> diffs = new ArrayList<>();
-        List<PropertyInfoVersionType> oldVersions = oldInfo.getVersion();
-        List<PropertyInfoVersionType> newVersions = newInfo.getVersion();
-
-        List<String> uniqueKeys = Arrays.asList("jurisdiction", "effectiveDate");
-
-        diffs.addAll(ComparatorUtilities.compareListsByUniqueKey(pattern, oldVersions, newVersions, "PropertyInfo[" + oldInfo.getName() + "].Version", "SCHEDULE_CONFIG_XML", uniqueKeys));
-        return diffs;
-    }*/
     private static List<XMLDiffResult> comparePropertyInfoLists(String pattern, ClauseType oldClause, ClauseType newClause) throws IllegalAccessException {
         List<XMLDiffResult> diffs = new ArrayList<>();
         List<PropertyInfoType> oldList = oldClause.getPropertyInfoList();

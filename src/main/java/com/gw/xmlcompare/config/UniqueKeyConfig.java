@@ -20,8 +20,6 @@ public class UniqueKeyConfig {
         uniqueKeyMap.put("FormPattern", List.of("code"));
         uniqueKeyMap.put("FormPatternLookup", List.of("jurisdiction", "startEffectiveDate"));
 
-
-
     }
 
     // Method to get unique keys for a given element name

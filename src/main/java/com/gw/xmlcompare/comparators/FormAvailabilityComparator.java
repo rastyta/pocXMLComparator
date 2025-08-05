@@ -34,37 +34,10 @@ public class FormAvailabilityComparator {
         return diffs;
     }
 
-    /*public static List<XMLDiffResult> compareAvailabilityConfigPatterns() throws Exception {
-        // Make necessary changes to the XML files before mapping to Java objects
-        makeFileChangesAndLoad();
-
-        Map<String, ContainerType> oldMap = toNameMap(oldAvailabilityConfig.getContainer());
-        Map<String, ContainerType> newMap = toNameMap(newAvailabilityConfig.getContainer());
-
-        Set<String> allNames = new HashSet<>();
-        allNames.addAll(oldMap.keySet());
-        allNames.addAll(newMap.keySet());
-
-        for (String name : allNames) {
-            ContainerType oldContainer = oldMap.get(name);
-            ContainerType newContainer = newMap.get(name);
-
-            if (oldContainer == null) {
-                results.add(new XMLDiffResult("AVAILABILITY_CONFIG_XML", name, "", "N/A", newContainer.toString(), NEW, "New Availability Config XML"));
-            } else if (newContainer == null) {
-                results.add(new XMLDiffResult("AVAILABILITY_CONFIG_XML", name, "", oldContainer.toString(), "N/A", REMOVED, "Removed Availability Config XML"));
-            } else {
-                List<XMLDiffResult> diffs = compare(name, oldContainer, newContainer);
-                results.addAll(diffs);
-            }
-        }
-        return results;
-    }*/
-
     public static List<XMLDiffResult> compareAvailabilityConfigPatterns() throws Exception {
         makeFileChangesAndLoad();
 
-        // Step 1: Detect duplicates in old and new
+        // Detecting duplicates in old and new
         List<XMLDiffResult> duplicateResults = new ArrayList<>();
         duplicateResults.addAll(findDuplicateNames(oldAvailabilityConfig.getContainer(), "old"));
         duplicateResults.addAll(findDuplicateNames(newAvailabilityConfig.getContainer(), "new"));
@@ -74,7 +47,7 @@ public class FormAvailabilityComparator {
             return results;
         }
 
-        // Step 2: Proceed with standard comparison for unique names
+        //Proceeding with standard comparison for unique names
         Map<String, ContainerType> oldMap = toNameMap(oldAvailabilityConfig.getContainer());
         Map<String, ContainerType> newMap = toNameMap(newAvailabilityConfig.getContainer());
 
@@ -91,7 +64,7 @@ public class FormAvailabilityComparator {
             } else if (newContainer == null) {
                 results.add(new XMLDiffResult("AVAILABILITY_CONFIG_XML", name, "", oldContainer.toString(), "N/A", REMOVED, "Removed Availability Config XML"));
             } else {
-                // Compare all fields of Container, including nested elements
+                // Comparing all fields of Container, including nested elements
                 results.addAll(compare(name, oldContainer, newContainer));
             }
         }
@@ -141,7 +114,6 @@ public class FormAvailabilityComparator {
     }
 
 
-    //Version[NY2011-11-01].depends[1]
    private static List<XMLDiffResult> compareVersionLists(String name, ContainerType oldContainer, ContainerType newContainer) throws IllegalAccessException {
         List<XMLDiffResult> diffs = new ArrayList<>();
         List<VersionType> oldList = oldContainer.getVersion();

@@ -4,6 +4,7 @@ import com.gw.xmlcompare.comparators.FormInferenceComparator;
 import com.gw.xmlcompare.comparators.FormAvailabilityComparator;
 import com.gw.xmlcompare.comparators.FormPatternComparator;
 import com.gw.xmlcompare.comparators.FormScheduleComparator;
+import com.gw.xmlcompare.comparators.LobFieldMetaComparator;
 import com.gw.xmlcompare.model.XMLDiffResult;
 import com.gw.xmlcompare.model.XMLFileType;
 import org.w3c.dom.*;
@@ -39,6 +40,8 @@ public class RunComparator {
             results = FormAvailabilityComparator.compareAvailabilityConfigPatterns();
         }else if(oldFileType == XMLFileType.Clause){
             results = FormScheduleComparator.compareScheduleConfigPatterns();
+        }else if(oldFileType == XMLFileType.Entity){
+            results = LobFieldMetaComparator.compareLobFieldMetaPatterns();
         }
         return results;
     }
@@ -69,6 +72,9 @@ public class RunComparator {
                     return XMLFileType.Container;
                 case CLAUSE:
                     return XMLFileType.Clause;
+                case ENTITY:
+                    return XMLFileType.Entity;
+
 
             }
         }
